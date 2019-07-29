@@ -90,6 +90,7 @@
                     <li>
                         <a href="<?php echo base_url();?>dashboard"><i class="fa fa-home"></i> <span>Inicio</span></a>
                     </li>
+                    
                     <li>
                         <a href="<?php echo base_url();?>backend/asociados"><i class="fa fa-home"></i> <span>Asociados</span></a>
                     </li>
@@ -141,6 +142,12 @@
                         </ul>
                     </li>
                     <?php endif?>
+                    <?php if ($this->session->userdata("rol") != 3): ?>
+                        <li>
+                            <a href="<?php echo base_url();?>backend/aportes"><i class="fa fa-home"></i> <span>Aportes</span></a>
+                        </li>
+                    <?php endif ?>
+                    
                     <li>
                         <a href="<?php echo base_url();?>usuario/perfil"><i class="fa fa-info-circle"></i> <span>Mi perfil</span></a>
                     </li>
