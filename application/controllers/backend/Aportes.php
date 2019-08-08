@@ -683,4 +683,13 @@ class Aportes extends CI_Controller {
 
 	}
 
+	public function view(){
+		$this->load->library('pdfgenerator');
+
+        $html = $this->load->view('admin/aportes/formato',"", true);
+        $filename = 'Estado de cuenta';
+        $this->pdfgenerator->generate($html, $filename, true, 'A4', 'portrait');
+	
+	}
+
 }
