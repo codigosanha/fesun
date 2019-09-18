@@ -36,32 +36,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php foreach ($usuarios as $usuario): ?>
-                                    <tr>
-                                        <td><?php echo $usuario->id?></td>
-                                        <td><?php echo $usuario->cedula?></td>
-                                        <td><?php echo $usuario->nombres?></td>
-                                        <td><?php echo $usuario->email?></td>
-                                        <td><?php echo $usuario->nombre;?></td>
-                                        <td><?php echo $usuario->estado == 0 ? "Inactivo":"activo";?></td>
-                                        <td>
-                                            <button type="button" class="btn btn-primary btn-add-finca" data-toggle="modal" data-target="#modal-fincas" value="<?php echo $usuario->id;?>">
-                                                <span class="fa fa-eye"></span>
-                                            </button>
-                                        </td>
-                                        
-                                        <td>
-                                            <div class="btn-group">
-                                                <a href="<?php echo base_url()?>administrador/usuarios/edit/<?php echo $usuario->id;?>" class="btn btn-warning btn-flat"><i class="fa fa-pencil"></i></a>
-                                                <button type="button" class="btn btn-danger bn-flat btn-deshabilitar" value="<?php echo $usuario->id;?>">
-                                                    <i class="fa fa-times"></i>
-                                                </button>
-                                            </div>
-                                        </td>
-                                        
-
-                                    </tr>
-                                <?php endforeach ?>
+                                
                             </tbody>
                         </table>
                     </div>

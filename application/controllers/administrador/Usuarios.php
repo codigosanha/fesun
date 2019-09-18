@@ -26,6 +26,77 @@ class Usuarios extends CI_Controller {
 		$this->load->view('admin/template', $contenido_externo);
 	}
 
+	public function getUsuarios()
+	{
+
+		$columns = array( 
+                            0 =>'id', 
+                            1 =>'cedula',
+                            2=> 'nombres',
+                            3=> 'email',
+                            4=> 'rol_id',
+                            5=> 'estado',
+                        );
+
+		$limit = $this->input->post('length');
+        $start = $this->input->post('start');
+        $order = $columns[$this->input->post('order')[0]['column']];
+        $dir = $this->input->post('order')[0]['dir'];
+  
+        $totalData = $this->Usuarios_model->allusuarios_count();
+            
+        $totalFiltered = $totalData; 
+            
+        if(empty($this->input->post('search')['value']))
+        {            
+            $usuarios = $this->Usuarios_model->allusuarios($limit,$start,$order,$dir);
+        }
+        else {
+            $search = $this->input->post('search')['value']; 
+
+            $usuarios =  $this->Usuarios_model->usuarios_search($limit,$start,$search,$order,$dir);
+
+            $totalFiltered = $this->Usuarios_model->usuarios_search_count($search);
+        }
+
+        $data = array();
+        if(!empty($usuarios))
+        {
+            foreach ($usuarios as $usuario)
+            {
+
+                $nestedData['id'] = $usuario->id;
+                $nestedData['nombres'] = $usuario->nombres." ".$usuario->apellidos;
+                $nestedData['cedula'] = $usuario->cedula;
+                $nestedData['email'] = $usuario->email;
+                switch ($usuario->rol_id) {
+                	case '1':
+                		$rol = "Administrador";
+                		break;
+                	case '2':
+                		$rol = "Usuario";
+                		break;
+                	
+                	default:
+                		$rol = "Gestor de Archivos";
+                		break;
+                }
+                $nestedData['rol'] = $rol;
+                $nestedData['estado'] = $usuario->estado ? 'Activo':'Inactivo';
+                $data[] = $nestedData;
+            }
+        }
+          
+        $json_data = array(
+                    "draw"            => intval($this->input->post('draw')),  
+                    "recordsTotal"    => intval($totalData),  
+                    "recordsFiltered" => intval($totalFiltered), 
+                    "data"            => $data   
+                    );
+            
+        echo json_encode($json_data); 
+	}
+
 	public function add(){
 		$contenido_interno = array(
 			"roles" => $this->Usuarios_model->getRoles()
@@ -254,6 +325,9 @@ class Usuarios extends CI_Controller {
 		$rol = $this->input->post("rol");
 		$cedula = $this->input->post("cedula");
 		$estado = 1;
+		$password   = $this->input->post("password");
+        $changePassword   = $this->input->post("checkChangePassword");
+        $usuarioActual = $this->Usuarios_model->getUsuario($id);
 
 		if ($this->input->post("estado") ) {
 			if ($this->input->post("estado") == 1) {
@@ -264,13 +338,20 @@ class Usuarios extends CI_Controller {
 			
 		}
 
+		if (empty($changePassword)) {
+            $password = $usuarioActual->password;
+        }else{
+            $password = sha1($password);
+        }
+
 	
 		$data = array(
 			"nombres" => $nombres,
 			"email" => $email,
 			"rol_id" => $rol,
 			"estado" => $estado,
-			"cedula" => $cedula
+			"cedula" => $cedula,
+			"password" => $password
 		);
 
 		if ($this->Usuarios_model->update($id, $data)) {

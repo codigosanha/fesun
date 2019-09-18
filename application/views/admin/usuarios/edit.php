@@ -11,9 +11,10 @@
     <div class="box box-solid">
     
         <div class="box-body">
+            <form action="<?php echo base_url();?>administrador/usuarios/update" method="POST">
             <div class="row">
                 <div class="col-md-6 col-sm-8 col-xs-12">
-                    <form action="<?php echo base_url();?>administrador/usuarios/update" method="POST">
+                    
                         <?php if ($this->session->flashdata("success")): ?>
                             <script>
                                 swal("Registro Actualizado!", "Haz click en el botón para continuar.", "success");
@@ -60,12 +61,21 @@
                             </div>
                         <?php endif ?>
                         <div class="form-group">
+                            <label>
+                                <input type="checkbox" value="0" id="checkChangePassword" name="checkChangePassword">
+                                Cambiar Contraseña
+                            </label>
+                            <input type="password" class="form-control" id="password" name="password" placeholder="Nueva Contraseña" disabled="disabled">
+                        </div>
+                        <div class="form-group">
                             <input type="submit" name="guardar" class="btn btn-success btn-flat" value="Guardar">
                             <a href="<?php echo base_url();?>administrador/usuarios" class="btn btn-danger btn-flat"> Volver</a>
                         </div>
-                    </form>
+                    
                 </div>
+
             </div>
+            </form>
         </div>
         <!-- /.box-body -->
         

@@ -3,6 +3,71 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Usuarios_model extends CI_Model {
 
+	function allusuarios_count()
+    {   
+        $query = $this
+                ->db
+                ->get('usuarios');
+    
+        return $query->num_rows();  
+
+    }
+    
+    function allusuarios($limit,$start,$col,$dir)
+    {   
+       $query = $this
+                ->db
+                ->limit($limit,$start)
+                ->order_by($col,$dir)
+                ->get('usuarios');
+        
+        if($query->num_rows()>0)
+        {
+            return $query->result(); 
+        }
+        else
+        {
+            return null;
+        }
+        
+    }
+   
+    function usuarios_search($limit,$start,$search,$col,$dir)
+    {
+        $query = $this
+                ->db
+                ->like('nombres',$search)
+                ->or_like('apellidos',$search)
+                ->or_like('email',$search)
+                ->or_like('cedula',$search)
+                ->limit($limit,$start)
+                ->order_by($col,$dir)
+                ->get('usuarios');
+        
+       
+        if($query->num_rows()>0)
+        {
+            return $query->result();  
+        }
+        else
+        {
+            return null;
+        }
+    }
+
+    function usuarios_search_count($search)
+    {
+        $query = $this
+                ->db
+                ->like('nombres',$search)
+                ->or_like('apellidos',$search)
+                ->or_like('email',$search)
+                ->or_like('cedula',$search)
+                ->get('usuarios');
+    
+        return $query->num_rows();
+    } 
+
 	public function getUsuarios(){
 		$this->db->select("u.*,r.nombre");
 		$this->db->from("usuarios u");

@@ -10,6 +10,20 @@ $(document).ready(function(){
 	 $('.timepicker').timepicker({
       showInputs: false
     });
+	$("#checkChangePassword").on("change", function(){
+		$("#password").val(null);
+		if($(this).prop('checked')) {
+		    $(this).val("1");
+		    
+		    $("#password").removeAttr("disabled");
+		    $("#password").attr("required","required");
+
+		}else{
+			$(this).val("0");
+			$("#password").attr("disabled","disabled");
+			$("#password").removeAttr("required");
+		}
+	});
 
 	$(document).on("click","#btn-import", function(){
 		$("body").prepend("<div class='loader'></div>");
@@ -897,6 +911,50 @@ $(document).ready(function(){
         });
     });
 
+    $(document).ready(function () {
+		/*var url_complete = base_url + "filemanager/archivos/getArchivos";
+		if (uri_segment != '') {
+			url_complete = base_url + "filemanager/archivos/getArchivos/"+uri_segment;
+		}*/
+        $('#tbusuario').DataTable({
+            "processing": true,
+            "serverSide": true,
+            "ajax":{
+                "url": base_url + "administrador/usuarios/getUsuarios",
+                "dataType": "json",
+                "type": "POST",
+                "data":{  '<?php echo $this->security->get_csrf_token_name(); ?>' : '<?php echo $this->security->get_csrf_hash(); ?>' }
+            },
+            "columns": [
+                { "data": "id" },
+                { "data": "cedula" },
+                { "data": "nombres" },
+                { "data": "email" },
+                { "data": "rol" },
+                { "data": "estado" },
+                {
+                    mRender: function (data, type, row) {
+                        var btnFinca = '<button type="button" class="btn btn-primary btn-sm btn-add-finca" data-toggle="modal" data-target="#modal-fincas" value="'+row.id+'">';
+                        btnFinca += '<span class="fa fa-eye"></span>';
+                        btnFinca += '</button>';
+                        return btnFinca;
+                    }
+                },
+                {
+                    mRender: function (data, type, row) {
+                    	var btnEditar = '<a href="'+base_url+'administrador/usuarios/edit/'+row.id+'" class="btn btn-warning btn-sm btn-flat"><i class="fa fa-pencil"></i></a>';
+                        var btnEliminar = '<button type="button" class="btn btn-danger btn-sm bn-flat btn-deshabilitar" value="'+row.id+'">';
+                        btnEliminar += '<i class="fa fa-times"></i>';
+                        btnEliminar += '</button>';
+                        return '<div class="btn-group">' + btnEditar +' '+ btnEliminar+ "</div>";
+                    }
+                } 
+            ],
+            "language": tradutorDataTables()  
+
+        });
+    });
+
     function tradutorDataTables(){
         return {
                 "lengthMenu": "Mostrar _MENU_ registros por pagina",
@@ -1234,7 +1292,7 @@ $(document).ready(function(){
         });
     } );
 
-    $(document).ready(function() {
+    /*$(document).ready(function() {
         $('#tbusuario').DataTable({
             dom: 'lBfrtip',
             language: {
@@ -1275,7 +1333,7 @@ $(document).ready(function(){
                     fullWidth: { fontSize: 18, bold: true, alignment: 'right', margin: [0,0,0,0] }
             },
         });
-    } );
+    } );*/
 
 });
 
