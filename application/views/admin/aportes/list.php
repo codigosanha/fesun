@@ -21,15 +21,17 @@
     
         <div class="box-body">
             <input type="hidden" id="modulo" value="aportes">
+            <?php if ($this->session->userdata("rol") == 1): ?>
             <div class="row">
                 <div class="col-md-12 text-right">
                     <button type="button" class="btn btn-success btn-flat" data-toggle="modal" data-target="#modal-importar">
                         <span class="fa fa-file-excel-o"></span> 
-                        Importar Aportes
+                            Importar Aportes
                     </button>
                 </div>
             </div>
             <hr>
+            <?php endif ?>
             <div class="row">
                 <div class="col-md-12">
                     
