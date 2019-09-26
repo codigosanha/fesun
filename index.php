@@ -67,7 +67,8 @@ switch (ENVIRONMENT)
 {
 	case 'development':
 		error_reporting(-1);
-		ini_set("max_execution_time", 'time_limit');
+		ini_set("max_execution_time", '0');
+		//ini_set("max_execution_time", 'time_limit');
 		ini_set('memory_limit', '-1');
 		ini_set('display_errors', 1);
 	break;
