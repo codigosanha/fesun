@@ -47,6 +47,14 @@
                                 <label for="password">Contraseña:</label>
                                 <input type="password" name="password" id="password" class="form-control" required placeholder="Digite su contraseña">
                             </div>
+                            <div class="form-group">
+                                <label for="rol">Tipo de Usuario:</label>
+                                <select name="rol" id="rol" class="form-control">
+                                    <option value="1">Administrador</option>
+                                    <option value="2">Usuario</option>
+                                    <option value="3">Gestor de Archivos</option>
+                                </select>
+                            </div>
                             <div >
                                  <input type="submit" name="login" value="Iniciar Sesión" class="btn btn-success">
                                  

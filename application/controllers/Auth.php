@@ -83,7 +83,9 @@ class Auth extends CI_Controller {
 		if ($this->input->post("login")) {
 			$email = $this->input->post("email");
 			$password = $this->input->post("password");
-			$res = $this->Usuarios_model->login($email, sha1($password));
+			$rol = $this->input->post("rol");
+
+			$res = $this->Usuarios_model->login($email, sha1($password), $rol);
 
 			if (!$res) {
 				$this->session->set_flashdata("error","Los datos no son válidos");
@@ -91,31 +93,20 @@ class Auth extends CI_Controller {
 				//echo "0";
 			}
 			else{
-
-				
 				$data  = array(
 					'id' => $res->id, 
 					'nombres' => $res->nombres,
-					'rol' => $res->rol_id,
+					'rol' => $rol,
 					'login' => TRUE
 				);
 				$this->session->set_userdata($data);
 				$this->backend_lib->savelog($this->modulo,"Inicio de sesión");
 
-				if ($res->rol_id == 2) {
+				if ($rol == 2) {
 					redirect(base_url()."usuario/perfil");
 				}
 
 				redirect(base_url()."dashboard");
-
-				
-				/*if ($res->rol !=4) {
-					redirect(base_url()."dashboard");
-				}else{
-					redirect(base_url()."usuario/perfil");
-				}*/
-				
-				//echo "1";
 			}
 		}
 

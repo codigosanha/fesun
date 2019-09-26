@@ -30,10 +30,11 @@
                                     <div class="form-group">
                                         <label>Tipo de Identificacion</label>
                                         <select name="tipo_identificacion" id="tipo_identificacion" class="form-control" required="required">
-                                            <option value="">Seleccione...</option>
-                                            <?php foreach ($tipoidentificaciones as $ti): ?>
-                                                <option value="<?php echo $ti->id;?>"><?php echo $ti->tipoidentificacion?></option>
-                                            <?php endforeach ?>
+                                            <option value="">Selecione...</option>
+                                            <option value="C. E.">C.E.</option>
+                                            <option value="C. C.">C. C.</option>
+                                            <option value="Pasaporte">Pasaporte</option>
+                                            <option value="Otro">Otro</option>
                                         </select>
                                     </div>
                                     <div class="form-group">
@@ -63,16 +64,16 @@
                                         <label for="">Zona de Ubicación</label>
                                         <select name="zona_ubicacion" class="form-control" required="required">
                                             <option value="">Selecione...</option>
-                                            <option value="1">Urbana</option>
-                                            <option value="2">Rural</option>
+                                            <option value="Urbana">Urbana</option>
+                                            <option value="rural">Rural</option>
                                         </select>
                                     </div>
                                      <div class="form-group">
                                         <label for="">Cabecera de Hogar</label>
                                         <select name="cabeza_hogar" class="form-control" required="required">
                                             <option value="">Indique</option>
-                                            <option value="1">SI</option>
-                                            <option value="2">No</option>
+                                            <option value="SI">SI</option>
+                                            <option value="NO">No</option>
                                         </select>
                                     </div>
                                     <div class="form-group">
@@ -87,17 +88,17 @@
                                         <label for="">Vinculado a otro fondo de empleados</label>
                                         <select name="vinculado_fondo" id="vinculado_fondo" class="form-control" required="required">
                                             <option value="">Indique</option>
-                                            <option value="1">SI</option>
-                                            <option value="2">No</option>
+                                            <option value="SI">SI</option>
+                                            <option value="NO">No</option>
                                         </select>
                                     </div>
                                     <div class="form-group">
                                         <label for="">Tipo de Poblacion</label>
                                         <select name="tipo_poblacion" id="tipo_poblacion" class="form-control" required="required">
                                             <option value="">Seleccione..</option>
-                                            <option value="1">Etnica</option>
-                                            <option value="2">Afectada por la Violencia</option>
-                                            <option value="3">Otro</option>
+                                            <option value="Etnica">Etnica</option>
+                                            <option value="Afectada por la Violencia">Afectada por la Violencia</option>
+                                            <option value="Otro">Otro</option>
                                         </select>
                                     </div>
                                     
@@ -116,8 +117,8 @@
                                         <label for="">Género</label>
                                         <select name="genero" class="form-control" required="required">
                                             <option value="">Indique</option>
-                                            <option value="M">Masculino</option>
-                                            <option value="F">Femenino</option>
+                                            <option value="Masculino">Masculino</option>
+                                            <option value="Femenino">Femenino</option>
                                         </select>
                                     </div>
                                     <div class="form-group">
@@ -180,27 +181,35 @@
                                         <label for="">Estado Civil</label>
                                         <select name="estado_civil" class="form-control" required="required">
                                             <option value="">Seleccione..</option>
-                                            <?php foreach ($estadosciviles as $ec): ?>
-                                                <option value="<?php  echo $ec->id;?>"><?php echo $ec->nombre;?></option>
-                                            <?php endforeach ?>
+                                            <option value="Soltero">Soltero</option>
+                                            <option value="Casado">Casado</option>
+                                            <option value="Divorciado">Divorciado</option>
+                                            <option value="Unión Libre">Unión libre</option>
+                                            <option value="Viudo">Viudo</option>
                                         </select>
                                     </div>
                                     <div class="form-group">
                                         <label for="">Nivel de Escolaridad</label>
                                         <select name="nivel_escolar" class="form-control" required="required">
                                             <option value="">Indique</option>
-                                            <?php foreach ($nivelescolaridades as $ne): ?>
-                                                <option value="<?php echo $ne->id?>"><?php echo $ne->nivel?></option>
-                                            <?php endforeach ?>
+                                            <option value="Ninguno">Ninguno</option>
+                                            <option value="Primaria">Primaria</option>
+                                            <option value="Secundaria">Secundaria</option>
+                                            <option value="Técnico">Técnico</option>
+                                            <option value="Técnologo">Técnologo</option>
+                                            <option value="Universitario">Universitario</option>
+                                            <option value="Postgrado">Postgrado</option>
                                         </select>
                                     </div>
                                     <div class="form-group">
                                         <label for="">Vivienda</label>
                                         <select name="vivienda" class="form-control" required="required">
                                             <option value="">Indique</option>
-                                            <?php foreach ($viviendas as $v): ?>
-                                                <option value="<?php echo $v->id?>"><?php echo $v->vivienda?></option>
-                                            <?php endforeach ?>
+                                            <option value="Propia">Propia</option>
+                                            <option value="Hipotecada">Hipotecada</option>
+                                            <option value="Arrendada">Arrendada</option>
+                                            <option value="Financiada">Financiada</option>
+                                            <option value="Familiar">Familiar</option>
                                         </select>
                                     </div>
                                     <div class="form-group">
@@ -223,20 +232,18 @@
                                         <label for="">Autorizo envio de informacion por correo electronico</label>
                                         <select name="autorizo_envio" class="form-control" required="required">
                                             <option value="">Indique</option>
-                                            <option value="1">SI</option>
-                                            <option value="2">NO</option>
+                                            <option value="SI">SI</option>
+                                            <option value="NO">NO</option>
                                         </select>
                                     </div>
                                     <div class="form-group">
                                         <label for="">Poblacion Vulnerable</label>
                                         <select name="poblacion_vulnerable" class="form-control" required="required">
                                             <option value="">Indique</option>
-                                            <option value="1">SI</option>
-                                            <option value="2">NO</option>
+                                            <option value="SI">SI</option>
+                                            <option value="NO">NO</option>
                                         </select>
                                     </div>
-                                   
-
                                 </div>
                             </div>
                             <div class="row">
@@ -336,18 +343,21 @@
                                         <label for="">Tipo Identificacion</label>
                                         <select name="ti_conyuge" id="ti_conyuge" class="form-control" >
                                             <option value="">Seleccione..</option>
-                                            <?php foreach ($tipoidentificaciones as $ti): ?>
-                                                <option value="<?php echo $ti->id;?>"><?php echo $ti->tipoidentificacion?></option>
-                                            <?php endforeach ?>
+                                            <option value="C. E.">C.E.</option>
+                                            <option value="C. C.">C. C.</option>
+                                            <option value="Pasaporte">Pasaporte</option>
+                                            <option value="Otro">Otro</option>
                                         </select>
                                     </div>
                                     <div class="form-group">
                                         <label for="">Actividad Laboral</label>
                                         <select name="actividad_laboral" id="actividad_laboral" class="form-control">
                                             <option value="">Seleccione..</option>
-                                            <?php foreach ($actividades as $a): ?>
-                                                <option value="<?php echo $a->id;?>"><?php echo $a->actividad?></option>
-                                            <?php endforeach ?>
+                                            <option value="Independiente">Independiente</option>
+                                            <option value="Asalariado">Asalariado</option>
+                                            <option value="Hogar">Hogar</option>
+                                            <option value="Pensionado">Pensionado</option>
+
                                         </select>
                                     </div>
                                     <div class="form-group">
@@ -366,7 +376,7 @@
                                <div class="col-md-4">
                                    <div class="form-group">
                                         <label for="">Segundo Apellid</label>
-                                        <input type="text" class="form-control" name="segundo_apellido_c" placeholder="Segundo Apellido"">
+                                        <input type="text" class="form-control" name="segundo_apellido_c" placeholder="Segundo Apellido">
                                     </div>
                                     <div class="form-group">
                                         <label for="">Numero de Identificacion</label>
@@ -388,8 +398,8 @@
                                         <label for="">Asociado a FESUN</label>
                                         <select name="asociado_fesun_c" id="asociado_fesun_c" class="form-control">
                                             <option value="">Indique</option>
-                                            <option value="1">SI</option>
-                                            <option value="2">NO</option>
+                                            <option value="SI">SI</option>
+                                            <option value="NO">NO</option>
                                         </select>
                                     </div>
                                </div>
@@ -406,9 +416,9 @@
                                         <label for="">Jornada Laboral</label>
                                         <select name="jornada_laboral" id="jornada_laboral" class="form-control" >
                                             <option value="">Indique</option>
-                                            <option value="1">Tiempo Total</option>
-                                            <option value="2">Tiempo Parcial</option>
-                                            <option value="3">No Aplica</option>
+                                            <option value="Tiempo Total">Tiempo Total</option>
+                                            <option value="Tiempo Parcial">Tiempo Parcial</option>
+                                            <option value="No Aplica">No Aplica</option>
                                         </select>
                                     </div>
                                     <div class="form-group">
@@ -419,9 +429,13 @@
                                         <label for="">Nivel de Escolaridad</label>
                                         <select name="nivel_escolar_c" class="form-control" >
                                             <option value="">Seleccione..</option>
-                                            <?php foreach ($nivelescolaridades as $ne): ?>
-                                                <option value="<?php echo $ne->id?>"><?php echo $ne->nivel?></option>
-                                            <?php endforeach ?>
+                                            <option value="Ninguno">Ninguno</option>
+                                            <option value="Primaria">Primaria</option>
+                                            <option value="Secundaria">Secundaria</option>
+                                            <option value="Técnico">Técnico</option>
+                                            <option value="Técnologo">Técnologo</option>
+                                            <option value="Universitario">Universitario</option>
+                                            <option value="Postgrado">Postgrado</option>
                                         </select>
                                     </div>
                                </div>
@@ -522,8 +536,8 @@
                                         <label for="">Tipo de Nomina</label>
                                         <select name="tipo_nomina" class="form-control">
                                             <option value="">Indique</option>
-                                            <option value="1">Mensual</option>
-                                            <option value="2">Quincenal</option>
+                                            <option value="Mensual">Mensual</option>
+                                            <option value="Quincenal">Quincenal</option>
                                         </select>
                                     </div>
                                     <div class="form-group">
@@ -551,8 +565,8 @@
                                         <label for="">Tipo de Contrato</label>
                                         <select name="tipo_contrato" class="form-control" required="">
                                             <option value="">Indique</option>
-                                            <option value="1">T Fijo</option>
-                                            <option value="2">T Indefinido</option>
+                                            <option value="Fijo">T Fijo</option>
+                                            <option value="Indefinido">T Indefinido</option>
                                         </select>
                                     </div>
                                     <div class="form-group">
@@ -669,16 +683,16 @@
                                         <label for="">Tiene cuenta bancaria?</label>
                                         <select name="cuenta_bancaria" id="cuenta_bancaria" class="form-control">
                                             <option value="">Indique</option>
-                                            <option value="1">SI</option>
-                                            <option value="2">NO</option>
+                                            <option value="SI">SI</option>
+                                            <option value="NO">NO</option>
                                         </select>
                                     </div>
                                     <div class="form-group">
                                         <label for="">Realiza Operaciones en Moneda Extranjera?</label>
                                         <select name="operacion_extranjera" id="operacion_extranjera" class="form-control">
                                             <option value="">Indique</option>
-                                            <option value="1">SI</option>
-                                            <option value="2">NO</option>
+                                            <option value="SI">SI</option>
+                                            <option value="NO">NO</option>
                                         </select>
                                     </div>
                                     <div class="form-group">
@@ -708,24 +722,24 @@
                                         <label for="">Tipo de Cuenta</label>
                                         <select name="tipo_cuenta" id="tipo_cuenta" class="form-control">
                                             <option value="">Indique</option>
-                                            <option value="1">Ahorro</option>
-                                            <option value="2">Corriente</option>
+                                            <option value="Ahorro">Ahorro</option>
+                                            <option value="Corriente">Corriente</option>
                                         </select>
                                     </div>
                                     <div class="form-group">
                                         <label for="">Cuenta con moneda Extrajera?</label>
                                         <select name="moneda_extranjera" id="moneda_extranjera" class="form-control"> 
                                             <option value="">Indique</option>
-                                            <option value="1">SI</option>
-                                            <option value="2">NO</option>
+                                            <option value="SI">SI</option>
+                                            <option value="NO">NO</option>
                                         </select>
                                     </div>
                                     <div class="form-group">
                                         <label for="">Declara renta?</label>
                                         <select name="declara_renta" id="declara_renta" class="form-control">
                                             <option value="">Indique</option>
-                                            <option value="1">SI</option>
-                                            <option value="2">NO</option>
+                                            <option value="SI">SI</option>
+                                            <option value="NO">NO</option>
                                         </select>
                                     </div>
                                 </div> 
@@ -774,8 +788,8 @@
                                             <label for="">Pignoracion</label>
                                             <select name="pignoracion" id="pignoracion" class="form-control">
                                                 <option value="">Inidque</option>
-                                                <option value="1">SI</option>
-                                                <option value="2">NO</option>
+                                                <option value="SI">SI</option>
+                                                <option value="NO">NO</option>
                                             </select>
                                         </td>
                                         <td>
@@ -827,8 +841,8 @@
                                             <label for="">Hipoteca</label>
                                             <select name="hipoteca" id="hipoteca" class="form-control">
                                                 <option value="">Indique</option>
-                                                <option value="1">SI</option>
-                                                <option value="2">NO</option>
+                                                <option value="SI">SI</option>
+                                                <option value="NO">NO</option>
                                             </select>
                                         </td>
                                         <td colspan="2">
@@ -976,9 +990,11 @@
                                         <label for="">Tipo de Vinculacion:</label>
                                         <select name="tipo_vinculacion" id="tipo_vinculacion" required="required" class="form-control">
                                             <option value="">Seleccione...</option>
-                                            <?php foreach ($vinculaciones as $v): ?>
-                                                <option value="<?php echo $v->id; ?>"><?php echo $v->vinculacion?></option>
-                                            <?php endforeach ?>
+                                            <option value="Vinculación">Vinculación</option>
+                                            <option value="Actualización">Actualización</option>
+                                            <option value="Vinculación por Primera vez">Vinculación por Primera vez</option>
+                                            <option value="Reingreso">Reingreso</option>
+
                                         </select>
                                     </div>
                                     <div class="form-group">

@@ -94,12 +94,18 @@ class Usuarios_model extends CI_Model {
 		return $this->db->update("usuarios",$data);
 	}
 
-	public function login($email, $password){
-		$this->db->where("(email ='$email' OR cedula='$email')");
+	public function login($email,$password, $rol){
+		
 		$this->db->where("password", $password);
 		$this->db->where("estado","1");
-
-		$resultados = $this->db->get("usuarios");
+        if ($rol == 2) {
+            $this->db->where("(correo ='$email' OR num_identificacion='$email')");
+            $resultados = $this->db->get("asociados");
+        }else{
+            $this->db->where("(email ='$email' OR cedula='$email')");
+            $resultados = $this->db->get("usuarios");
+        }
+		
 		if ($resultados->num_rows() > 0) {
 			return $resultados->row();
 		}

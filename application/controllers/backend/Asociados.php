@@ -292,7 +292,6 @@ class Asociados extends CI_Controller {
 
 	public function add(){
 		$contenido_interno = array(
-			"tipoidentificaciones" => $this->Backend_model->getTiposIdentificaciones(),
 			"departamentos" => $this->Backend_model->getDepartamentos(),
 			"estadosciviles" => $this->Backend_model->getEstadosCiviles(),
 			"nivelescolaridades" => $this->Backend_model->getNivelEscolaridad(),
@@ -318,53 +317,63 @@ class Asociados extends CI_Controller {
 			$highestColumn = $worksheet->getHighestColumn();
 			for($row=2; $row<=$highestRow; $row++)
 			{
-				$primer_apellido = $worksheet->getCellByColumnAndRow(0, $row)->getValue();
-				$segundo_apellido = $worksheet->getCellByColumnAndRow(1, $row)->getValue();
-				$nombres = $worksheet->getCellByColumnAndRow(2, $row)->getValue();
-				$tipo_identificacion = $worksheet->getCellByColumnAndRow(3, $row)->getValue();
-				$num_identificacion = $worksheet->getCellByColumnAndRow(4, $row)->getValue();
-				$departamento = $worksheet->getCellByColumnAndRow(5, $row)->getValue();
-				$municipio = $worksheet->getCellByColumnAndRow(6, $row)->getValue();
-				$genero = $worksheet->getCellByColumnAndRow(7, $row)->getValue();
-				$estado_civil = $worksheet->getCellByColumnAndRow(8, $row)->getValue();
-				$fec_expedicion = PHPExcel_Shared_Date::ExcelToPHPObject($worksheet->getCellByColumnAndRow(9, $row)->getValue());
-				$fecha_nacimiento = PHPExcel_Shared_Date::ExcelToPHPObject($worksheet->getCellByColumnAndRow(10, $row)->getValue());
-				$nivel_escolar = $worksheet->getCellByColumnAndRow(11, $row)->getValue();
-				$dep_nacimiento = $worksheet->getCellByColumnAndRow(12, $row)->getValue();
-				$mun_nacimiento = $worksheet->getCellByColumnAndRow(13, $row)->getValue();
-				$vivienda = $worksheet->getCellByColumnAndRow(14, $row)->getValue();
-				$profesion = $worksheet->getCellByColumnAndRow(15, $row)->getValue();
-				$ocupacion = $worksheet->getCellByColumnAndRow(16, $row)->getValue();
-				$numero_hijos = $worksheet->getCellByColumnAndRow(17, $row)->getValue();
-				$zona_ubicacion = $worksheet->getCellByColumnAndRow(18, $row)->getValue();
-				$tiempo_residencia = $worksheet->getCellByColumnAndRow(19, $row)->getValue();
-				$hijos_menores = $worksheet->getCellByColumnAndRow(20, $row)->getValue();
-				$cabeza_hogar = $worksheet->getCellByColumnAndRow(21, $row)->getValue();
-				$personas_dependientes = $worksheet->getCellByColumnAndRow(22, $row)->getValue();
-				$ciudad = $worksheet->getCellByColumnAndRow(23, $row)->getValue();
-				$direccion_residencia = $worksheet->getCellByColumnAndRow(24, $row)->getValue();
-				$barrio = $worksheet->getCellByColumnAndRow(25, $row)->getValue();
-				$celular = $worksheet->getCellByColumnAndRow(26, $row)->getValue();
-				$telefono = $worksheet->getCellByColumnAndRow(27, $row)->getValue();
-				$correo = $worksheet->getCellByColumnAndRow(28, $row)->getValue();
-				$vinculacion_empresa = $worksheet->getCellByColumnAndRow(29, $row)->getValue();
+				$primer_apellido = $worksheet->getCellByColumnAndRow(1, $row)->getValue();
+				$segundo_apellido = $worksheet->getCellByColumnAndRow(2, $row)->getValue();
+				$nombres = $worksheet->getCellByColumnAndRow(3, $row)->getValue();
+				$tipo_identificacion = $worksheet->getCellByColumnAndRow(4, $row)->getValue();
+				$num_identificacion = $worksheet->getCellByColumnAndRow(5, $row)->getValue();
+				$departamento = $worksheet->getCellByColumnAndRow(6, $row)->getValue();
+				$municipio = $worksheet->getCellByColumnAndRow(7, $row)->getValue();
+				$genero = $worksheet->getCellByColumnAndRow(8, $row)->getValue();
+				$estado_civil = $worksheet->getCellByColumnAndRow(9, $row)->getValue();
+				/*$fec_expedicion = PHPExcel_Shared_Date::ExcelToPHPObject($worksheet->getCellByColumnAndRow(10, $row)->getValue());*/
+				$set_fec_expedicion = $worksheet->getCellByColumnAndRow(10, $row)->getFormattedValue();
 
-				$set_fecha_ingreso = '';
+				if ($set_fec_expedicion!="") {
+					$set_fec_expedicion = date("Y-m-d", strtotime( str_replace("/", "-", $set_fec_expedicion)));
+				}
 
-				if ($worksheet->getCellByColumnAndRow(30, $row)->getValue()) {
-					$fecha_ingreso = PHPExcel_Shared_Date::ExcelToPHPObject($worksheet->getCellByColumnAndRow(30, $row)->getValue());
-					$set_fecha_ingreso = $fecha_ingreso->format('Y-m-d H:i:s');
+				$set_fecha_nacimiento = $worksheet->getCellByColumnAndRow(11, $row)->getFormattedValue();
+
+				if ($set_fecha_nacimiento!="") {
+					$set_fecha_nacimiento = date("Y-m-d", strtotime( str_replace("/", "-", $set_fecha_nacimiento)));
+				}
+
+				$nivel_escolar = $worksheet->getCellByColumnAndRow(12, $row)->getValue();
+				$dep_nacimiento = $worksheet->getCellByColumnAndRow(13, $row)->getValue();
+				$mun_nacimiento = $worksheet->getCellByColumnAndRow(14, $row)->getValue();
+				$vivienda = $worksheet->getCellByColumnAndRow(15, $row)->getValue();
+				$profesion = $worksheet->getCellByColumnAndRow(16, $row)->getValue();
+				$ocupacion = $worksheet->getCellByColumnAndRow(17, $row)->getValue();
+				$numero_hijos = $worksheet->getCellByColumnAndRow(18, $row)->getValue();
+				$zona_ubicacion = $worksheet->getCellByColumnAndRow(19, $row)->getValue();
+				$tiempo_residencia = $worksheet->getCellByColumnAndRow(20, $row)->getValue();
+				$hijos_menores = $worksheet->getCellByColumnAndRow(21, $row)->getValue();
+				$cabeza_hogar = $worksheet->getCellByColumnAndRow(22, $row)->getValue();
+				$personas_dependientes = $worksheet->getCellByColumnAndRow(23, $row)->getValue();
+				$ciudad = $worksheet->getCellByColumnAndRow(24, $row)->getValue();
+				$direccion_residencia = $worksheet->getCellByColumnAndRow(25, $row)->getValue();
+				$barrio = $worksheet->getCellByColumnAndRow(26, $row)->getValue();
+				$celular = $worksheet->getCellByColumnAndRow(27, $row)->getValue();
+				$telefono = $worksheet->getCellByColumnAndRow(28, $row)->getValue();
+				$correo = $worksheet->getCellByColumnAndRow(29, $row)->getValue();
+				$vinculacion_empresa = $worksheet->getCellByColumnAndRow(30, $row)->getValue();
+
+				$set_fecha_ingreso = $worksheet->getCellByColumnAndRow(11, $row)->getFormattedValue();
+
+				if ($set_fecha_ingreso!="") {
+					$set_fecha_ingreso = date("Y-m-d", strtotime( str_replace("/", "-", $set_fecha_ingreso)));
 				}
 				
-				$finca = $worksheet->getCellByColumnAndRow(31, $row)->getValue();
-				$municipio_laboral = $worksheet->getCellByColumnAndRow(32, $row)->getValue();
-				$tipo_nomina = $worksheet->getCellByColumnAndRow(33, $row)->getValue();
-				$tipo_contrato = $worksheet->getCellByColumnAndRow(34, $row)->getValue();
-				$tiempo_servicio = $worksheet->getCellByColumnAndRow(35, $row)->getValue();
-				$sueldo_basico = $worksheet->getCellByColumnAndRow(36, $row)->getValue();
-				$cargo = $worksheet->getCellByColumnAndRow(37, $row)->getValue();
-				$fondo_pensiones = $worksheet->getCellByColumnAndRow(38, $row)->getValue();
-				$fondo_cesantias = $worksheet->getCellByColumnAndRow(39, $row)->getValue();
+				$finca = $worksheet->getCellByColumnAndRow(32, $row)->getValue();
+				$municipio_laboral = $worksheet->getCellByColumnAndRow(33, $row)->getValue();
+				$tipo_nomina = $worksheet->getCellByColumnAndRow(34, $row)->getValue();
+				$tipo_contrato = $worksheet->getCellByColumnAndRow(35, $row)->getValue();
+				$tiempo_servicio = $worksheet->getCellByColumnAndRow(36, $row)->getValue();
+				$sueldo_basico = $worksheet->getCellByColumnAndRow(37, $row)->getValue();
+				$cargo = $worksheet->getCellByColumnAndRow(38, $row)->getValue();
+				$fondo_pensiones = $worksheet->getCellByColumnAndRow(39, $row)->getValue();
+				$fondo_cesantias = $worksheet->getCellByColumnAndRow(40, $row)->getValue();
 
 				$data[] = array(
 					"primer_apellido" => $primer_apellido,
@@ -376,8 +385,8 @@ class Asociados extends CI_Controller {
 					"municipio" => $municipio,
 					"genero" => $genero,
 					"estado_civil" => $estado_civil,
-					"fec_expedicion" => $fec_expedicion->format('Y-m-d'),
-					"fecha_nacimiento" => $fecha_nacimiento->format('Y-m-d'),
+					"fec_expedicion" => $set_fec_expedicion,
+					"fecha_nacimiento" => $set_fecha_nacimiento,
 					"nivel_escolar" => $nivel_escolar,
 					"dep_nacimiento" => $dep_nacimiento,
 					"mun_nacimiento" => $mun_nacimiento,
@@ -421,25 +430,16 @@ class Asociados extends CI_Controller {
 					"estado" => 0
 				);
 
-				$dataUsuario[] = array(
-					'cedula' => $num_identificacion, 
-					'nombres' => $nombres, 
-					'apellidos' => $primer_apellido ." ".$segundo_apellido, 
-					'email' => $correo, 
-					'rol_id' => 2, 
-					'estado' => 1, 
-					'password' => sha1($num_identificacion), 
-					'sexo' => $genero, 
-
-				);
+				
 			}
 		}
+		echo print_r($data);
 
-		$this->Asociados_model->insertAsociados($data);
+		/*$this->Asociados_model->insertAsociados($data);
 		$this->Asociados_model->insertUsuarios($dataUsuario);
 
 		$this->session->set_flashdata("success", "Los datos fueron cargados exitosamente");
-		redirect(base_url()."backend/asociados");
+		redirect(base_url()."backend/asociados");*/
 
 	}
 
