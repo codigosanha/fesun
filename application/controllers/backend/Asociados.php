@@ -322,8 +322,22 @@ class Asociados extends CI_Controller {
 				$nombres = $worksheet->getCellByColumnAndRow(3, $row)->getValue();
 				$tipo_identificacion = $worksheet->getCellByColumnAndRow(4, $row)->getValue();
 				$num_identificacion = $worksheet->getCellByColumnAndRow(5, $row)->getValue();
+				$checkNumIdentificacion = $this->Asociados_model->getAsociadoByIdentificacion($num_identificacion);
+				if ($checkNumIdentificacion) {
+					$password = $checkNumIdentificacion->password;
+				}else{
+					$password = sha1($num_identificacion);
+				}
 				$departamento = $worksheet->getCellByColumnAndRow(6, $row)->getValue();
+				if ($departamento) {
+					$infoDepartamento = $this->Asociados_model->getDepartamentoByName($departamento);
+					$departamento = $infoDepartamento->id_departamento;
+				}
 				$municipio = $worksheet->getCellByColumnAndRow(7, $row)->getValue();
+				if ($municipio) {
+					$infoMunicipio = $this->Asociados_model->getMunicipioByName($municipio);
+					$municipio = $infoMunicipio->id_municipio;
+				}
 				$genero = $worksheet->getCellByColumnAndRow(8, $row)->getValue();
 				$estado_civil = $worksheet->getCellByColumnAndRow(9, $row)->getValue();
 				/*$fec_expedicion = PHPExcel_Shared_Date::ExcelToPHPObject($worksheet->getCellByColumnAndRow(10, $row)->getValue());*/
@@ -351,7 +365,15 @@ class Asociados extends CI_Controller {
 
 				$nivel_escolar = $worksheet->getCellByColumnAndRow(12, $row)->getValue();
 				$dep_nacimiento = $worksheet->getCellByColumnAndRow(13, $row)->getValue();
+				if ($dep_nacimiento) {
+					$infoDepartamento = $this->Asociados_model->getDepartamentoByName($dep_nacimiento);
+					$dep_nacimiento = $infoDepartamento->id_departamento;
+				}
 				$mun_nacimiento = $worksheet->getCellByColumnAndRow(14, $row)->getValue();
+				if ($mun_nacimiento) {
+					$infoMunicipio = $this->Asociados_model->getMunicipioByName($mun_nacimiento);
+					$mun_nacimiento = $infoMunicipio->id_municipio;
+				}
 				$vivienda = $worksheet->getCellByColumnAndRow(15, $row)->getValue();
 				$profesion = $worksheet->getCellByColumnAndRow(16, $row)->getValue();
 				$ocupacion = $worksheet->getCellByColumnAndRow(17, $row)->getValue();
@@ -384,7 +406,19 @@ class Asociados extends CI_Controller {
 				$nombres_conyuge = $worksheet->getCellByColumnAndRow(44, $row)->getValue();
 				$tipo_identificacion_conyuge = $worksheet->getCellByColumnAndRow(45, $row)->getValue();
 				$num_identificacion_conyuge = $worksheet->getCellByColumnAndRow(46, $row)->getValue();
-				$fec_nacimiento_conyuge = $worksheet->getCellByColumnAndRow(47, $row)->getValue();
+	
+				$set_fec_nacimiento_conyuge = $worksheet->getCellByColumnAndRow(47, $row)->getFormattedValue();
+
+				if ($set_fec_nacimiento_conyuge!="") {
+					$set_fec_nacimiento_conyuge = DateTime::createFromFormat('d/m/Y', $set_fec_nacimiento_conyuge);
+					if ($set_fec_nacimiento_conyuge!==false) {
+						$set_fec_nacimiento_conyuge = $set_fec_nacimiento_conyuge->format('Y-m-d');
+					}else{
+						$set_fec_nacimiento_conyuge ="";
+					}		
+				}
+
+
 				$actividad_laboral_conyuge = $worksheet->getCellByColumnAndRow(48, $row)->getValue();
 				$salario_conyuge = $worksheet->getCellByColumnAndRow(49, $row)->getValue();
 				$jornada_laboral_conyuge = $worksheet->getCellByColumnAndRow(50, $row)->getValue();
@@ -405,6 +439,11 @@ class Asociados extends CI_Controller {
 				}
 				
 				$finca = $worksheet->getCellByColumnAndRow(61, $row)->getValue();
+				if ($finca) {
+					$infoFinca = $this->Asociados_model->getFincaByName($finca);
+					$finca = $infoFinca->id;
+				}
+
 				$municipio_laboral = $worksheet->getCellByColumnAndRow(62, $row)->getValue();
 				$tipo_nomina = $worksheet->getCellByColumnAndRow(63, $row)->getValue();
 				$tipo_contrato = $worksheet->getCellByColumnAndRow(64, $row)->getValue();
@@ -446,7 +485,15 @@ class Asociados extends CI_Controller {
 				$tipo_bien = $worksheet->getCellByColumnAndRow(100, $row)->getValue();
 				$direccion = $worksheet->getCellByColumnAndRow(101, $row)->getValue();
 				$departamento_bienes = $worksheet->getCellByColumnAndRow(102, $row)->getValue();
+				if ($departamento_bienes) {
+					$infoDepartamento = $this->Asociados_model->getDepartamentoByName($departamento_bienes);
+					$departamento_bienes = $infoDepartamento->id_departamento;
+				}
 				$ciudad_bienes = $worksheet->getCellByColumnAndRow(103, $row)->getValue();
+				if ($ciudad_bienes) {
+					$infoCiudad = $this->Asociados_model->getDepartamentoByName($ciudad_bienes);
+					$ciudad_bienes = $infoCiudad->id_municipio;
+				}
 				$valor_comercial = $worksheet->getCellByColumnAndRow(104, $row)->getValue();
 				$matricula_inmobilaria = $worksheet->getCellByColumnAndRow(105, $row)->getValue();
 				$hipoteca = $worksheet->getCellByColumnAndRow(106, $row)->getValue();
@@ -465,17 +512,50 @@ class Asociados extends CI_Controller {
 				$rc_telefono = $worksheet->getCellByColumnAndRow(119, $row)->getValue();
 				$rc_celular = $worksheet->getCellByColumnAndRow(120, $row)->getValue();
 				$tipo_vinculacion = $worksheet->getCellByColumnAndRow(121, $row)->getValue();
-				$fec_diligencia = $worksheet->getCellByColumnAndRow(122, $row)->getValue();
+				$set_fec_diligencia = $worksheet->getCellByColumnAndRow(122, $row)->getFormattedValue();
+
+				if ($set_fec_diligencia!="") {
+					$set_fec_diligencia = DateTime::createFromFormat('d/m/Y', $set_fec_diligencia);
+					if ($set_fec_diligencia!==false) {
+						$set_fec_diligencia = $set_fec_diligencia->format('Y-m-d');
+					}else{
+						$set_fec_diligencia ="";
+					}		
+				}
 				$oficina = $worksheet->getCellByColumnAndRow(123, $row)->getValue();
-				$fecha_afiliacion = $worksheet->getCellByColumnAndRow(124, $row)->getValue();
+				$set_fecha_afiliacion = $worksheet->getCellByColumnAndRow(124, $row)->getFormattedValue();
+				if ($set_fecha_afiliacion!="") {
+					$set_fecha_afiliacion = DateTime::createFromFormat('d/m/Y', $set_fecha_afiliacion);
+					if ($set_fecha_afiliacion!==false) {
+						$set_fecha_afiliacion = $set_fecha_afiliacion->format('Y-m-d');
+					}else{
+						$set_fecha_afiliacion ="";
+					}		
+				}
 				$interes = $worksheet->getCellByColumnAndRow(125, $row)->getValue();
 				$lugar_entrevista = $worksheet->getCellByColumnAndRow(126, $row)->getValue();
-				$fecha_entrevista = $worksheet->getCellByColumnAndRow(127, $row)->getValue();
+				$set_fecha_entrevista = $worksheet->getCellByColumnAndRow(127, $row)->getFormattedValue();
+				if ($set_fecha_entrevista!="") {
+					$set_fecha_entrevista = DateTime::createFromFormat('d/m/Y', $set_fecha_entrevista);
+					if ($set_fecha_entrevista!==false) {
+						$set_fecha_entrevista = $set_fecha_entrevista->format('Y-m-d');
+					}else{
+						$set_fecha_entrevista ="";
+					}		
+				}
 				$hora = $worksheet->getCellByColumnAndRow(128, $row)->getValue();
 				$usuario_id = $worksheet->getCellByColumnAndRow(129, $row)->getValue();
+				if ($usuario_id) {
+					$infoUsuario = $this->Asociados_model->getUsuarioByEmail($usuario_id);
+					$usuario_id = $infoUsuario->id;
+				}
 				$observaciones_diligencia = $worksheet->getCellByColumnAndRow(130, $row)->getValue();
 				$estado = $worksheet->getCellByColumnAndRow(131, $row)->getValue();
 				$user_aprueba = $worksheet->getCellByColumnAndRow(132, $row)->getValue();
+				if ($user_aprueba) {
+					$infoUsuario = $this->Asociados_model->getUsuarioByEmail($user_aprueba);
+					$user_aprueba = $infoUsuario->id;
+				}
 
 
 				$data[] = array(
@@ -525,7 +605,7 @@ class Asociados extends CI_Controller {
 					"nombres_conyuge" => $nombres_conyuge,
 					"tipo_identificacion_conyuge" => $tipo_identificacion_conyuge,
 					"num_identificacion_conyuge" => $num_identificacion_conyuge,
-					"fec_nacimiento_conyuge" => $fec_nacimiento_conyuge,
+					"fec_nacimiento_conyuge" => $set_fec_nacimiento_conyuge,
 					"actividad_laboral_conyuge" => $actividad_laboral_conyuge,
 					"salario_conyuge" => $salario_conyuge,
 					"jornada_laboral_conyuge" => $jornada_laboral_conyuge,
@@ -600,29 +680,30 @@ class Asociados extends CI_Controller {
 					"rc_telefono" => $rc_telefono,
 					"rc_celular" => $rc_celular,
 					"tipo_vinculacion" => $tipo_vinculacion,
-					"fec_diligencia" => $fec_diligencia,
+					"fec_diligencia" => $set_fec_diligencia,
 					"oficina" => $oficina,
-					"fecha_afiliacion" => $fecha_afiliacion,
+					"fecha_afiliacion" => $set_fecha_afiliacion,
 					"interes" => $interes,
 					"lugar_entrevista" => $lugar_entrevista,
-					"fecha_entrevista" => $fecha_entrevista,
+					"fecha_entrevista" => $set_fecha_entrevista,
 					"hora" => $hora,
 					"usuario_id" => $usuario_id,
 					"observaciones_diligencia" => $observaciones_diligencia,
 					"estado" => $estado,
 					"user_aprueba" => $user_aprueba,
+					"password" => $password
 				);
 
 				
 			}
 		}
-		echo print_r($data);
+		$this->Asociados_model->truncate();
 
-		/*$this->Asociados_model->insertAsociados($data);
-		$this->Asociados_model->insertUsuarios($dataUsuario);
+		$this->Asociados_model->insertAsociados($data);
+		//$this->Asociados_model->insertUsuarios($dataUsuario);
 
 		$this->session->set_flashdata("success", "Los datos fueron cargados exitosamente");
-		redirect(base_url()."backend/asociados");*/
+		redirect(base_url()."backend/asociados");
 
 	}
 

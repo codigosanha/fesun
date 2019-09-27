@@ -326,4 +326,51 @@ class Asociados_model extends CI_Model {
 	}
 
 
+	public function getDepartamentoByName($name){
+		$this->db->where("departamento", $name);
+		$resultados = $this->db->get("departamentos");
+		if ($resultados->num_rows() > 0) {
+			return $resultados->row();
+		}
+		return false;
+	}
+	public function getMunicipioByName($name){
+		$this->db->where("municipio", $name);
+		$resultados = $this->db->get("municipios");
+		if ($resultados->num_rows() > 0) {
+			return $resultados->row();
+		}
+		return false;
+	}
+
+	public function getFincaByName($name){
+		$this->db->where("nombre", $name);
+		$resultados = $this->db->get("fincas");
+		if ($resultados->num_rows() > 0) {
+			return $resultados->row();
+		}
+		return false;
+	}
+
+	public function getUsuarioByEmail($name){
+		$this->db->where("email", $name);
+		$resultados = $this->db->get("usuarios");
+		if ($resultados->num_rows() > 0) {
+			return $resultados->row();
+		}
+		return false;
+	}
+
+	public function getAsociadoByIdentificacion($num_identificacion){
+		$this->db->where("num_identificacion", $num_identificacion);
+		$resultados = $this->db->get("asociados");
+		if ($resultados->num_rows() > 0) {
+			return $resultados->row();
+		}
+		return false;
+	}
+
+	public function truncate(){
+		$this->db->truncate('asociados');
+	}
 }
