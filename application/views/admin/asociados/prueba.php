@@ -66,7 +66,7 @@
         <tr>
             <td class="celda centrado">
                 <b>Tipo de Diligenciamiento:</b>
-                <?php echo $asociado->vinculacion ?>
+                <?php echo $asociado->tipo_vinculacion ?>
             </td>
             <td class="celda centrado">
                 <b>Fecha de Diligenciamiento:</b>
@@ -102,7 +102,7 @@
         <tr>
             <td class="celda">
                 <b>Tipo de Identificación:</b> 
-                <?php echo get_tipo_identificacion($asociado->tipo_identificacion)->tipoidentificacion;?>
+                <?php echo $asociado->tipo_identificacion?>
             </td>
             <td class="celda">
                 <b>Número de Identificación:</b> 
@@ -123,11 +123,11 @@
         <tr>
             <td class="celda">
                 <b>Genero:</b> 
-                <?php echo $asociado->genero == "M"?"Masculino":"Femenino";?>
+                <?php echo $asociado->genero;?>
             </td>
             <td class="celda">
                 <b>Estado Civil:</b> 
-                <?php echo $asociado->nombre;?>
+                <?php echo $asociado->estado_civil;?>
             </td>
             <td class="celda">
                 <b>Lugar de Nacimiento:</b> 
@@ -143,9 +143,8 @@
         <tr>
             <td class="celda">
                 <b>Nivel Escolaridad</b> 
-                <?php if ($asociado->nivel_escolar!=0 || !empty($asociado->nivel_escolar)): ?>
-                     <?php echo get_nivel_escolaridad($asociado->nivel_escolar)->nivel;?>
-                 <?php endif ?> 
+                <?php echo $asociado->nivel_escolar;?>
+                 
                 
             </td>
             <td class="celda">
@@ -160,14 +159,14 @@
         <tr>
             <td class="celda">
                 <b>Vivienda:</b> 
-                <?php if ($asociado->vivienda!=0 || !empty($asociado->vivienda)): ?>
-                     <?php echo get_vivienda($asociado->vivienda)->vivienda;?>
-                 <?php endif ?> 
+                
+                <?php echo $asociado->vivienda;?>
+                 
                 
             </td>
             <td class="celda">
                 <b>Zona de Ubicación</b> 
-                <?php echo $asociado->zona_ubicacion == "1"?"Urbana":"Rural";?>
+                <?php echo $asociado->zona_ubicacion;?>
             </td>
             <td class="celda">
                 <b>Tiempo de Residencia en la zona de ubicación</b> 
@@ -179,7 +178,7 @@
             </td>
             <td class="celda">
                 <b>Cabeza de Hogar:</b> 
-                <?php echo $asociado->cabeza_hogar=="1"?"SI":"NO";?>
+                <?php echo $asociado->cabeza_hogar;?>
             </td>
         </tr>
         <tr>
@@ -221,29 +220,22 @@
             </td>
             <td class="celda" colspan="2">
                 <b>Como asociado Autorizo el envio de informacion por correo electronico:</b> 
-                <?php echo $asociado->autorizo_envio=="1"?"SI":"NO";?>
+                <?php echo $asociado->autorizo_envio;?>
             </td>
         </tr>
         <tr>
             <td class="celda" colspan="2">
                 <b>En la actualidad esta vinculado a otro Fondo de Empleados y/o Coorperativa</b> 
-                <?php echo $asociado->vinculado_fondo=="1"?"SI":"NO";?>
+                <?php echo $asociado->vinculado_fondo;?>
             </td>
             <td class="celda">
                 <b>Población Vulnerable</b> 
-                <?php echo $asociado->poblacion_vulnerable=="1"?"SI":"NO";?>
+                <?php echo $asociado->poblacion_vulnerable;?>
             </td>
             <td class="celda" colspan="2">
                 <b>Tipo  de Población</b> 
-                <?php 
-                    if ($asociado->tipo_poblacion =="1") {
-                        echo "Poblacion Etnica";
-                    } else if($asociado->tipo_poblacion =="2"){
-                        echo "Poblacion afectada por la violencia";
-                    }else{
-                        echo "Otra";
-                    }
-                ?>
+                <?php echo $asociado->tipo_poblacion;?>
+                
             </td>
 
         </tr>
@@ -315,8 +307,7 @@
             <td class="celda">
                 <b>Tipo de Identificacion:</b> 
                 <?php
-
-                 echo !empty($asociado->tipo_identificacion_conyuge) ? get_tipo_identificacion($asociado->tipo_identificacion_conyuge) :'' ; 
+                 echo $asociado->tipo_identificacion_conyuge; 
                 ?>
             </td>
             <td class="celda">
@@ -339,9 +330,8 @@
             </td>
             <td class="celda">
                 <b>Actividad Laboral:</b> 
-                <?php if ($asociado->actividad_laboral_conyuge !=0) {
-                        echo $asociado->actividad_laboral_conyuge;
-                    }
+                <?php 
+                    echo $asociado->actividad_laboral_conyuge;
                 ?>
             </td>
         </tr>
@@ -353,13 +343,7 @@
             <td class="celda">
                 <b>Jornada Laboral:</b> 
                 <?php 
-                    if ($asociado->jornada_laboral_conyuge == 1) {
-                        echo "Tiempo Total";
-                    }
-
-                    if($asociado->jornada_laboral_conyuge==2){
-                        echo "Tiempo Parcial";
-                    }
+                    echo $asociado->jornada_laboral_conyuge;
                 ?>
             </td>
             <td class="celda" colspan="2">
@@ -396,7 +380,7 @@
         <tr>
             <td class="celda">
                 <b>Nivel de Escolaridad:</b> <br>
-                <?php echo $asociado->nivel_escolar_conyuge!=0 ? get_nivel_escolaridad($asociado->nivel_escolar_conyuge)->nivel :'' ;?>
+                <?php echo $asociado->nivel_escolar_conyuge;?>
             </td>
             <td class="celda">
                 <b>Ocupación:</b> <br>
@@ -405,9 +389,9 @@
             <td class="celda" colspan="2">
                 <b>Asociado a FESUN?:</b>
                 <?php 
-                    if (!empty($asociado->asociado_fesun_conyuge)) {
-                        echo $asociado->asociado_fesun_conyuge=="1"?"SI":"NO";
-                    }
+                    
+                    echo $asociado->asociado_fesun_conyuge;
+                    
                 ?>
             </td>
         </tr>
@@ -468,11 +452,11 @@
         <tr>
             <td class="celda">
                 <b>Tipo de Nomina: </b> 
-                <?php echo $asociado->tipo_nomina=="1"?"Mensual":"Quincenal";?>
+                <?php echo $asociado->tipo_nomina;?>
             </td>
             <td class="celda">
                 <b>Tipo de Contrato: </b> 
-                <?php echo $asociado->tipo_contrato=="1"?"T Fijo":"T Indefinido";?>
+                <?php echo $asociado->tipo_contrato;?>
             </td>
             <td class="celda">
                 <b>Tiempo de Servicio: </b> 
@@ -583,7 +567,7 @@
         <tr>
             <td class="celda">
                 <b>Tiene cuenta bancaria? </b>
-                <?php echo $asociado->cuenta_bancaria == 1 ? "SI":"NO";?>
+                <?php echo $asociado->cuenta_bancaria;?>
             </td>
             <td class="celda" colspan="2">
                 <b>Entidad: </b>
@@ -591,21 +575,21 @@
             </td>
             <td class="celda">
                 <b>Tipo de Cuenta: </b>
-                <?php echo $asociado->tipo_cuenta == 1 ? "SI":"NO";?>
+                <?php echo $asociado->tipo_cuenta;?>
             </td>
         </tr>
         <tr>
             <td class="celda">
                 <b>Realiza Operaciones con Moneda Estranjera? </b>
-                <?php echo $asociado->operaciones_extranjeras == 1 ? "SI":"NO";?>
+                <?php echo $asociado->operaciones_extranjeras;?>
             </td>
             <td class="celda" colspan="2">
                 <b>Posee cuenta con moneda extranjera? </b>
-                <?php echo $asociado->moneda_extranjera == 1 ? "SI":"NO";?>
+                <?php echo $asociado->moneda_extranjera;?>
             </td>
             <td class="celda">
                 <b>Declara Renta? </b>
-                <?php echo $asociado->declara_renta == 1 ? "SI":"NO";?>
+                <?php echo $asociado->declara_renta;?>
             </td>
         </tr>
     </tbody>
@@ -637,7 +621,7 @@
             </td>
             <td class="celda">
                 <b>Pignoración</b>
-                <?php echo $asociado->pignoracion == 1 ? "SI":"NO";?>
+                <?php echo $asociado->pignoracion;?>
             </td>
         </tr>
         <tr>
@@ -677,7 +661,7 @@
             </td>
             <td class="celda">
                 <b>Hipoteca: </b>
-                <?php echo $asociado->hipoteca == 1 ? "SI":"NO";?>
+                <?php echo $asociado->hipoteca;?>
             </td>
             <td class="celda" colspan="2">
                 <b>Entidad a la cual se encuentra hipotecada: </b>
@@ -823,7 +807,7 @@
         </tr>
         <tr>
             <td class="celda" style="text-align: justify;">
-                En cumplimiento de la Ley estatutaria 1581 de 2012 de Protección de Datos (LEPD), del decreto 1377 del 2013 y demás normas que la modifiquen, adicionen y/o complementen, el presente aviso de privacidad tienen como objeto obtener la AUTORIZACION expresa e informada del Titular para el tratamiento y la transferencia de sus datos a terceras entidades, por lo tanto:  Yo <span style="font-weight: bold; text-decoration: underline;"><?php echo $asociado->nombres." ".$asociado->primer_apellido;?> </span> identificado con la CC:<span style="font-weight: bold; text-decoration: underline;"><?php echo $asociado->tipo_identificacion==2 ? "X":"   ";?></span>    CE:<span style="font-weight: bold; text-decoration: underline;"><?php echo $asociado->tipo_identificacion==1 ? "X":"   ";?></span> Número <span style="text-decoration: underline; width: 200px;" ><?php echo $asociado->num_identificacion;?></span> de <span style="text-decoration: underline; width: 200px;" >
+                En cumplimiento de la Ley estatutaria 1581 de 2012 de Protección de Datos (LEPD), del decreto 1377 del 2013 y demás normas que la modifiquen, adicionen y/o complementen, el presente aviso de privacidad tienen como objeto obtener la AUTORIZACION expresa e informada del Titular para el tratamiento y la transferencia de sus datos a terceras entidades, por lo tanto:  Yo <span style="font-weight: bold; text-decoration: underline;"><?php echo $asociado->nombres." ".$asociado->primer_apellido;?> </span> identificado con la CC:<span style="font-weight: bold; text-decoration: underline;"><?php echo $asociado->tipo_identificacion=="C. C." ? "X":"   ";?></span>    CE:<span style="font-weight: bold; text-decoration: underline;"><?php echo $asociado->tipo_identificacion=="C. E." ? "X":"   ";?></span> Número <span style="text-decoration: underline; width: 200px;" ><?php echo $asociado->num_identificacion;?></span> de <span style="text-decoration: underline; width: 200px;" >
                     <?php if ($asociado->municipio!=0 || !empty($asociado->municipio)): ?>
                      <?php echo get_municipio($asociado->municipio)->municipio;?>
                  <?php endif ?> 
@@ -835,7 +819,7 @@
 * Me comprometo a consultar en la página web el estatuto y toda la normatividad vigente e informar oportunamente cualquier modificación en mis datos personales, dirección, teléfono, correo electrónico o cambios salariales debidamente soportados.
 * Autorizo a FESUN para actuar por cuenta y riesgo mío como mandatario de pago para cubrir mis obligaciones que adquiera por convenios relacionados con la adquisición de bienes y/o servicios recibidos de  terceras personas, naturales o jurídicas en mi beneficio y/o de mi grupo familiar, por lo tanto libero a FESUN de cualquier responsabilidad que se genere en esos  negocios.<br>
             
-                Bajo la gravedad de juramento y actuando en nombre propio realizo las siguiente declaración de origen y designación de recursos a FESUN, con el fin de cumplir con la disposiciones señaladas en su Sistema de Administracion de Riesgo de Lavado de Activos y de la Financiación del Terrorismo: Yo <span style="font-weight: bold; text-decoration: underline;"><?php echo $asociado->nombres." ".$asociado->primer_apellido;?> </span> identificado con la CC:<span style="font-weight: bold; text-decoration: underline;"><?php echo $asociado->tipo_identificacion==2 ? "X":"   ";?></span>    CE:<span style="font-weight: bold; text-decoration: underline;"><?php echo $asociado->tipo_identificacion==1 ? "X":"   ";?></span> Número <span style="text-decoration: underline; width: 200px;" ><?php echo $asociado->num_identificacion;?></span> obrando en nombre propio, declaro bajo la gravedad de juramento, sujeto a las sanciones establecidas en el código penal: 1- Que mis recursos provienen de actividades licitas y están ligadas al desarrollo normal de mis actividades, y que, por lo tanto, los mismos no provienen de ninguna actividad ilícita de las contempladas en el código penal Colombiano y de cualquier norma que la sustituya, adicione o modifique. 2- que NO he efectuado transacciones u operaciones consistentes, destinadas a la ejecución de actividades ilícitas de las contempladas en el código penal colombiano o en cualquier norma que lo sustituya, adicione o modifique o a favor de personas que ejecuten o estén relacionadas con la ejecución de dichas actividades. 3- que los recursos comprometidos para la ejecución del contrato o para el desarrollo de las actividades del negocio jurídico acordado con FESUN no proviene de ninguna actividad ilícita de las contempladas en el código penal colombiano o en cualquier norma que lo sustituya, adicione o modifique. 4- que no me encuentro en las listas internaciones vinculantes para colombia de conformidad en el derecho internacional (Listas de las Naciones Unidas) o en las listas OFAC, estando FESUN Facultado para efectuar las verificaciones que considere pertinentes y para dar por terminada cualquier relación comercial  o jurídica si verifica que me encuentro figurando en dichas listas. 5- que no existe sobre mi directa o indirectamente delitos dolosos, estando FESUN facultado para efectuar las verificaciones que considere pertinentes en base de datos o informaciones públicas nacionales y para dar por terminada cualquier relación comercial o jurídica si verifica que yo tuviera investigaciones o procesos, o existen informaciones en dichas bases de datos públicas que puedan colocar a FESUN  frente a un riesgo legal, de reputación o  de contagio. 6- que en el evento que tenga conocimiento de algunas de las circunstancias descritas en los puntos anteriores, me comprometo a comunicarlo de inmediato a FESUN. 7- que con la firma del presente documento, se entiende, otorgo mi consentimiento y por lo tanto autorizo a FESUN a comunicar a las autoridades nacionales o de cualquiera de los países en los cuales FESUN realice operaciones, sobre alguna de las situaciones en este documento descritas, así como a suministrar a las autoridades competentes de dichos países toda la información personal, publica, privada o semiprivada que sobre mi requiera. Así mismo para que FESUN efectué los reportes a las autoridades competentes, que considere procedentes de conformidad con sus reglamentos y manuales relacionados con su sistema de administración del riesgo de lavado de activos y de la financiación del terrorismo, exonerando así toda la responsabilidad por tal hecho. 8-  que toda la documentación e información aportada para la celebración y ejecución del contrato o negocio jurídico con FESUN es veraz y exacta, estando FESUN  facultado para efectuar las verificaciones que considere pertinentes y para dar por terminado el contrato o negocio jurídico, si verifica o tiene conocimiento de que ello no es así. 9- que ninguna persona natural o jurídica, tiene interés no legitimo en el contrato o negocio jurídico que motiva la suscripción de la presente declaración. 10- que conozco declaro y acepto que FESUN  está en la obligación legal  de solicitar las aclaraciones que estime pertinentes en el evento en que se presenten circunstancias con base en las cuales FESUN pueda tener dudas razonables sobre mis operaciones o las operaciones de la persona natural o jurídica que represento, así como del origen de mis activos, evento en el cual suministrare las declaraciones que sean del caso. Si estas no son satisfactorias, a juicio de FESUN, lo autorizo para dar por terminada cualquier relación comercial o jurídica.
+                Bajo la gravedad de juramento y actuando en nombre propio realizo las siguiente declaración de origen y designación de recursos a FESUN, con el fin de cumplir con la disposiciones señaladas en su Sistema de Administracion de Riesgo de Lavado de Activos y de la Financiación del Terrorismo: Yo <span style="font-weight: bold; text-decoration: underline;"><?php echo $asociado->nombres." ".$asociado->primer_apellido;?> </span> identificado con la CC:<span style="font-weight: bold; text-decoration: underline;"><?php echo $asociado->tipo_identificacion=="C. C." ? "X":"   ";?></span>    CE:<span style="font-weight: bold; text-decoration: underline;"><?php echo $asociado->tipo_identificacion=="C. E." ? "X":"   ";?></span> Número <span style="text-decoration: underline; width: 200px;" ><?php echo $asociado->num_identificacion;?></span> obrando en nombre propio, declaro bajo la gravedad de juramento, sujeto a las sanciones establecidas en el código penal: 1- Que mis recursos provienen de actividades licitas y están ligadas al desarrollo normal de mis actividades, y que, por lo tanto, los mismos no provienen de ninguna actividad ilícita de las contempladas en el código penal Colombiano y de cualquier norma que la sustituya, adicione o modifique. 2- que NO he efectuado transacciones u operaciones consistentes, destinadas a la ejecución de actividades ilícitas de las contempladas en el código penal colombiano o en cualquier norma que lo sustituya, adicione o modifique o a favor de personas que ejecuten o estén relacionadas con la ejecución de dichas actividades. 3- que los recursos comprometidos para la ejecución del contrato o para el desarrollo de las actividades del negocio jurídico acordado con FESUN no proviene de ninguna actividad ilícita de las contempladas en el código penal colombiano o en cualquier norma que lo sustituya, adicione o modifique. 4- que no me encuentro en las listas internaciones vinculantes para colombia de conformidad en el derecho internacional (Listas de las Naciones Unidas) o en las listas OFAC, estando FESUN Facultado para efectuar las verificaciones que considere pertinentes y para dar por terminada cualquier relación comercial  o jurídica si verifica que me encuentro figurando en dichas listas. 5- que no existe sobre mi directa o indirectamente delitos dolosos, estando FESUN facultado para efectuar las verificaciones que considere pertinentes en base de datos o informaciones públicas nacionales y para dar por terminada cualquier relación comercial o jurídica si verifica que yo tuviera investigaciones o procesos, o existen informaciones en dichas bases de datos públicas que puedan colocar a FESUN  frente a un riesgo legal, de reputación o  de contagio. 6- que en el evento que tenga conocimiento de algunas de las circunstancias descritas en los puntos anteriores, me comprometo a comunicarlo de inmediato a FESUN. 7- que con la firma del presente documento, se entiende, otorgo mi consentimiento y por lo tanto autorizo a FESUN a comunicar a las autoridades nacionales o de cualquiera de los países en los cuales FESUN realice operaciones, sobre alguna de las situaciones en este documento descritas, así como a suministrar a las autoridades competentes de dichos países toda la información personal, publica, privada o semiprivada que sobre mi requiera. Así mismo para que FESUN efectué los reportes a las autoridades competentes, que considere procedentes de conformidad con sus reglamentos y manuales relacionados con su sistema de administración del riesgo de lavado de activos y de la financiación del terrorismo, exonerando así toda la responsabilidad por tal hecho. 8-  que toda la documentación e información aportada para la celebración y ejecución del contrato o negocio jurídico con FESUN es veraz y exacta, estando FESUN  facultado para efectuar las verificaciones que considere pertinentes y para dar por terminado el contrato o negocio jurídico, si verifica o tiene conocimiento de que ello no es así. 9- que ninguna persona natural o jurídica, tiene interés no legitimo en el contrato o negocio jurídico que motiva la suscripción de la presente declaración. 10- que conozco declaro y acepto que FESUN  está en la obligación legal  de solicitar las aclaraciones que estime pertinentes en el evento en que se presenten circunstancias con base en las cuales FESUN pueda tener dudas razonables sobre mis operaciones o las operaciones de la persona natural o jurídica que represento, así como del origen de mis activos, evento en el cual suministrare las declaraciones que sean del caso. Si estas no son satisfactorias, a juicio de FESUN, lo autorizo para dar por terminada cualquier relación comercial o jurídica.
 Declaro que la totalidad de pagos que realizo a FESUN se efectúa de forma directa y con los recursos propios y no a través de terceros ni con recursos de terceros.
             </td>
         </tr>
@@ -854,7 +838,7 @@ Declaro que la totalidad de pagos que realizo a FESUN se efectúa de forma direc
         </tr>
         <tr>
             <td class="celda centrado celda-no-borde-top celda-no-borde-right" >  
-                <img src="./assets/images/firmas/<?php echo getUsuarioByCedula($asociado->num_identificacion)->firma;?>" style="height: 50px;margin-top: 7px;" alt=""> 
+                <img src="./assets/images/firmas/<?php echo $asociado->firma;?>" style="height: 50px;margin-top: 7px;" alt=""> 
                 <br>
                 <hr>
                 <b>Firma</b>

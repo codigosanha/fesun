@@ -1029,7 +1029,7 @@ class Asociados extends CI_Controller {
 
 		$fields = ["id", "primer_apellido", "segundo_apellido", "nombres", "tipo_identificacion", "num_identificacion", "departamento", "municipio", "genero", "estado_civil", "fec_expedicion", "fecha_nacimiento", "nivel_escolar", "dep_nacimiento", "mun_nacimiento", "vivienda", "profesion", "ocupacion", "numero_hijos", "zona_ubicacion", "tiempo_residencia", "hijos_menores", "cabeza_hogar", "personas_dependientes", "ciudad", "direccion_residencia", "barrio", "celular", "telefono", "correo", "autorizo_envio", "vinculado_fondo", "nombre_entidad", "poblacion_vulnerable", "tipo_poblacion", "otra_poblacion", "maneja_recursos", "reconocimiento", "poder_publico", "tiene_familiares", "especificacion", "familiares_asociados", "primer_apellido_conyuge", "segundo_apellido_conyuge", "nombres_conyuge", "tipo_identificacion_conyuge", "num_identificacion_conyuge", "fec_nacimiento_conyuge", "actividad_laboral_conyuge", "salario_conyuge", "jornada_laboral_conyuge", "empresa_conyuge", "cargo_conyuge", "antiguedad_conyuge", "telefono_conyuge", "celular_conyuge", "nivel_escolar_conyuge", "ocupacion_conyuge", "asociado_fesun_conyuge", "vinculacion_empresa", "fecha_ingreso", "finca", "municipio_laboral", "tipo_nomina", "tipo_contrato", "tiempo_servicio", "sueldo_basico", "cargo", "fondo_pensiones", "fondo_cesantias", "observaciones_laboral", "ingreso_bruto", "otros_ingresos", "descripcion_ingresos", "total_ingresos", "prestamos", "gastos_familiares", "otros_gastos", "total_egresos", "bancos", "corporaciones", "personales", "total_obligaciones", "activos_propiedades", "pasivos_obligaciones", "cuenta_bancaria", "entidad", "tipo_cuenta", "operaciones_extranjeras", "pais", "moneda_extranjera", "banco", "cuenta", "declara_renta", "marca", "modelo", "placa", "valor", "pignoracion", "entidad_pignorado", "tipo_bien", "direccion", "departamento_bienes", "ciudad_bienes", "valor_comercial", "matricula_inmobilaria", "hipoteca", "entidad_hipotecada", "otros_activos", "prf_nombres_apellidos", "prf_parentesco", "prf_telefono", "prf_celular", "srf_nombres_apellidos", "srf_parentesco", "srf_telefono", "srf_celular", "rc_nombres_apellidos", "rc_parentesco", "rc_telefono", "rc_celular", "tipo_vinculacion", "fec_diligencia", "oficina", "fecha_afiliacion", "interes", "lugar_entrevista", "fecha_entrevista", "hora", "usuario_id", "observaciones_diligencia", "estado", "user_aprueba"];
 
-	    for ($i=0; $i < ($num_fields - 1); $i++) { 
+	    for ($i=0; $i < ($num_fields - 2); $i++) { 
 	    	//$this->excel->getColumnDimensionByColumn($i)->setAutoSize(true);
 	    	$this->excel->getActiveSheet()->getColumnDimensionByColumn($i)->setAutoSize(true);
 	    	$this->excel->getActiveSheet()
@@ -1043,7 +1043,7 @@ class Asociados extends CI_Controller {
 	    $row = 2;
 	    
 	    foreach ($asociados as $asociado) {
-	    	for ($i=0; $i < ($num_fields-1); $i++) { 
+	    	for ($i=0; $i < ($num_fields-2); $i++) { 
 	    		if ($fields[$i]== "finca") {
 	    			$finca = "";
 	    			$infoFinca = $this->Fincas_model->getFinca($asociado[$fields[$i]]);
