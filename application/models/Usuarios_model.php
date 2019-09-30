@@ -82,7 +82,11 @@ class Usuarios_model extends CI_Model {
 		$this->db->join("roles r", "u.rol_id = r.id","left");
 		$this->db->where("u.id", $id);
 		$resultados = $this->db->get();
-		return $resultados->row();
+        if ($resultados->num_rows() > 0) {
+            return $resultados->row();
+        }
+        return false;
+		
 	}
 
 	public function save($data){

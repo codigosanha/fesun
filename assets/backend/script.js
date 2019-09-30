@@ -857,7 +857,6 @@ $(document).ready(function(){
                 "url": base_url + "backend/asociados/getAsociados",
                 "dataType": "json",
                 "type": "POST",
-                "data":{  '<?php echo $this->security->get_csrf_token_name(); ?>' : '<?php echo $this->security->get_csrf_hash(); ?>' }
             },
             "columns": [
                 { "data": "num_identificacion" },
@@ -906,7 +905,8 @@ $(document).ready(function(){
                     }
                 } 
             ],
-            "language": tradutorDataTables()  
+            "language": tradutorDataTables(),
+            "order": [[ 1, "asc" ]]
 
         });
     });

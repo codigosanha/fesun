@@ -127,12 +127,11 @@ class Asociados_model extends CI_Model {
     }
 
     public function getAsociado($id){
-		$this->db->select("a.*, v.vinculacion,ur.nombres as nombresur, ur.apellidos as apellidosur, f.nombre, CONCAT(ua.nombres, ' ',ua.apellidos) as user_aprueba");
+		$this->db->select("a.*,ur.nombres as nombresur, ur.apellidos as apellidosur, f.nombre, CONCAT(ua.nombres, ' ',ua.apellidos) as user_aprueba");
 		$this->db->from("asociados a");
-		$this->db->join("usuarios ur", "ur.id=a.usuario_id");
+		$this->db->join("usuarios ur", "ur.id=a.usuario_id","left");
 		$this->db->join("usuarios ua", "ua.id=a.user_aprueba","left");
-		$this->db->join("fincas f", "f.id=a.lugar_entrevista");
-		$this->db->join("vinculaciones v", "v.id=a.tipo_vinculacion");
+		$this->db->join("fincas f", "f.id=a.lugar_entrevista","left");
 		$this->db->where("a.id",$id);
 		$resultados = $this->db->get();
 		if ($resultados->num_rows() > 0) {

@@ -10,6 +10,7 @@ class Asociados extends CI_Controller {
 		}
 		$this->load->model("Fincas_model");
 		$this->load->model("Asociados_model");
+		$this->load->model("Usuarios_model");
 		$this->load->library('user_agent');
 		$this->load->helper('get_names_tables_relationship');
 		$this->load->library('excel');
@@ -27,12 +28,14 @@ class Asociados extends CI_Controller {
 	{
 
 		$columns = array( 
-                            0 =>'id', 
-                            1 =>'num_identificacion',
-                            2=> 'primer_apellido',
-                            3=> 'segundo_apellido',
-                            4=> 'nombres',
-                            5=> 'vinculacion',
+                            0 =>'num_identificacion', 
+                            1=> 'primer_apellido',
+                            2=> 'segundo_apellido',
+                            3=> 'nombres',
+                            4=> 'tipo_vinculacion',
+                            5=> 'fec_diligencia',
+                            6 => 'estado'
+
                         );
 
 		$limit = $this->input->post('length');
@@ -67,8 +70,12 @@ class Asociados extends CI_Controller {
                 $nestedData['primer_apellido'] = $asociado->primer_apellido;
                 $nestedData['segundo_apellido'] = $asociado->segundo_apellido;
                 $nestedData['nombres'] = $asociado->nombres;
-                $nestedData['tipo_vinculacion'] = get_vinculacion($asociado->tipo_vinculacion)->vinculacion;
-                $nestedData['datetime'] = $asociado->fec_diligencia." ".$asociado->hora;
+                $nestedData['tipo_vinculacion'] = $asociado->tipo_vinculacion;
+                $fec_diligencia = "";
+                if ($asociado->fec_diligencia != "0000-00-00") {
+                	$fec_diligencia = $asociado->fec_diligencia;
+                }
+                $nestedData['datetime'] = $fec_diligencia." ".$asociado->hora;
                 $nestedData['estado'] = $asociado->estado;
                 if ($asociado->estado == 0) {
                 	$text_estado = "Pendiente";
@@ -735,6 +742,18 @@ class Asociados extends CI_Controller {
 
 	public function edit($id){
 		$asociado = $this->Asociados_model->getAsociado($id);
+
+		$municipiosexp = "";
+		$municipiosraiz = "";
+		$municipiosnac = "";
+		if ($asociado->departamento!=null) {
+			$municipiosexp = $this->Backend_model->getMunicipios($asociado->departamento);
+			$municipiosraiz = $this->Backend_model->getMunicipios($asociado->departamento);
+		}
+
+		if ($asociado->dep_nacimiento) {
+			$municipiosnac = $this->Backend_model->getMunicipios($asociado->dep_nacimiento);
+		}
 		
 		$contenido_interno = array(
 			'asociado' => $asociado,
@@ -752,9 +771,9 @@ class Asociados extends CI_Controller {
 
 			"productos" => $this->Asociados_model->getProductos($id),
 
-			"municipiosexp" => $this->Backend_model->getMunicipios($asociado->departamento),
-			"municipiosnac" => $this->Backend_model->getMunicipios($asociado->dep_nacimiento),
-			"municipiosraiz" => $this->Backend_model->getMunicipios($asociado->departamento)
+			"municipiosexp" => $municipiosexp,
+			"municipiosnac" => $municipiosnac,
+			"municipiosraiz" => $municipiosraiz
 		);
 
 
@@ -1010,7 +1029,7 @@ class Asociados extends CI_Controller {
 
 		$fields = ["id", "primer_apellido", "segundo_apellido", "nombres", "tipo_identificacion", "num_identificacion", "departamento", "municipio", "genero", "estado_civil", "fec_expedicion", "fecha_nacimiento", "nivel_escolar", "dep_nacimiento", "mun_nacimiento", "vivienda", "profesion", "ocupacion", "numero_hijos", "zona_ubicacion", "tiempo_residencia", "hijos_menores", "cabeza_hogar", "personas_dependientes", "ciudad", "direccion_residencia", "barrio", "celular", "telefono", "correo", "autorizo_envio", "vinculado_fondo", "nombre_entidad", "poblacion_vulnerable", "tipo_poblacion", "otra_poblacion", "maneja_recursos", "reconocimiento", "poder_publico", "tiene_familiares", "especificacion", "familiares_asociados", "primer_apellido_conyuge", "segundo_apellido_conyuge", "nombres_conyuge", "tipo_identificacion_conyuge", "num_identificacion_conyuge", "fec_nacimiento_conyuge", "actividad_laboral_conyuge", "salario_conyuge", "jornada_laboral_conyuge", "empresa_conyuge", "cargo_conyuge", "antiguedad_conyuge", "telefono_conyuge", "celular_conyuge", "nivel_escolar_conyuge", "ocupacion_conyuge", "asociado_fesun_conyuge", "vinculacion_empresa", "fecha_ingreso", "finca", "municipio_laboral", "tipo_nomina", "tipo_contrato", "tiempo_servicio", "sueldo_basico", "cargo", "fondo_pensiones", "fondo_cesantias", "observaciones_laboral", "ingreso_bruto", "otros_ingresos", "descripcion_ingresos", "total_ingresos", "prestamos", "gastos_familiares", "otros_gastos", "total_egresos", "bancos", "corporaciones", "personales", "total_obligaciones", "activos_propiedades", "pasivos_obligaciones", "cuenta_bancaria", "entidad", "tipo_cuenta", "operaciones_extranjeras", "pais", "moneda_extranjera", "banco", "cuenta", "declara_renta", "marca", "modelo", "placa", "valor", "pignoracion", "entidad_pignorado", "tipo_bien", "direccion", "departamento_bienes", "ciudad_bienes", "valor_comercial", "matricula_inmobilaria", "hipoteca", "entidad_hipotecada", "otros_activos", "prf_nombres_apellidos", "prf_parentesco", "prf_telefono", "prf_celular", "srf_nombres_apellidos", "srf_parentesco", "srf_telefono", "srf_celular", "rc_nombres_apellidos", "rc_parentesco", "rc_telefono", "rc_celular", "tipo_vinculacion", "fec_diligencia", "oficina", "fecha_afiliacion", "interes", "lugar_entrevista", "fecha_entrevista", "hora", "usuario_id", "observaciones_diligencia", "estado", "user_aprueba"];
 
-	    for ($i=0; $i < $num_fields; $i++) { 
+	    for ($i=0; $i < ($num_fields - 1); $i++) { 
 	    	//$this->excel->getColumnDimensionByColumn($i)->setAutoSize(true);
 	    	$this->excel->getActiveSheet()->getColumnDimensionByColumn($i)->setAutoSize(true);
 	    	$this->excel->getActiveSheet()
@@ -1024,9 +1043,103 @@ class Asociados extends CI_Controller {
 	    $row = 2;
 	    
 	    foreach ($asociados as $asociado) {
-	    	
-	    	for ($i=0; $i < $num_fields; $i++) { 
+	    	for ($i=0; $i < ($num_fields-1); $i++) { 
+	    		if ($fields[$i]== "finca") {
+	    			$finca = "";
+	    			$infoFinca = $this->Fincas_model->getFinca($asociado[$fields[$i]]);
+	    			if ($infoFinca) {
+	    				$finca = $infoFinca->nombre;
+	    			}
+	    			$this->excel->getActiveSheet()->setCellValueByColumnAndRow($i, $row, $finca);
+	    			continue;
+	    		}
+	    		if ($fields[$i]== "usuario_id") {
+	    			$usuario_registra = "";
+	    			$infoUsuarioRegistra = $this->Usuarios_model->getUsuario($asociado[$fields[$i]]);
+	    			if ($infoUsuarioRegistra) {
+	    				$usuario_registra = $infoUsuarioRegistra->email;
+	    			}
+	    			$this->excel->getActiveSheet()->setCellValueByColumnAndRow($i, $row, $usuario_registra);
+	    			continue;
+	    		}
+	    		if ($fields[$i]== "user_aprueba") {
+	    			$usuario_aprueba = "";
+	    			$infoUsuarioAprueba = $this->Usuarios_model->getUsuario($asociado[$fields[$i]]);
+	    			if ($infoUsuarioAprueba) {
+	    				$usuario_aprueba = $infoUsuarioAprueba->email;
+	    			}
+	    			$this->excel->getActiveSheet()->setCellValueByColumnAndRow($i, $row, $usuario_aprueba);
+	    			continue;
+	    		}
+
+	    		if ($fields[$i]== "fecha_ingreso") {
+	    			if ($asociado[$fields[$i]] == "0000-00-00") {
+	    				$fecha_ingreso_format = "";
+	    			}else{
+	    				$fecha_ingreso_format = date("d/m/Y", strtotime( $asociado[$fields[$i]]));
+	    			}
+	    			$this->excel->getActiveSheet()->setCellValueByColumnAndRow($i, $row, $fecha_ingreso_format);
+	    			continue;
+	    		}
+	    		if ($fields[$i]== "fec_expedicion") {
+	    			if ($asociado[$fields[$i]] == "0000-00-00") {
+	    				$fec_expedicion_format = "";
+	    			}else{
+	    				$fec_expedicion_format = date("d/m/Y", strtotime( $asociado[$fields[$i]]));
+	    			}
+	    			$this->excel->getActiveSheet()->setCellValueByColumnAndRow($i, $row, $fec_expedicion_format);
+	    			continue;
+	    		}
+	    		if ($fields[$i]== "fecha_nacimiento") {
+	    			if ($asociado[$fields[$i]] == "0000-00-00") {
+	    				$fecha_nacimiento_format = "";
+	    			}else{
+	    				$fecha_nacimiento_format = date("d/m/Y", strtotime( $asociado[$fields[$i]]));
+	    			}
+	    			$this->excel->getActiveSheet()->setCellValueByColumnAndRow($i, $row, $fecha_nacimiento_format);
+	    			continue;
+	    		}
+	    		if ($fields[$i]== "fec_nacimiento_conyuge") {
+	    			if ($asociado[$fields[$i]] == "0000-00-00") {
+	    				$fec_nacimiento_conyuge_format = "";
+	    			}else{
+	    				$fec_nacimiento_conyuge_format = date("d/m/Y", strtotime( $asociado[$fields[$i]]));
+	    			}
+	    			$this->excel->getActiveSheet()->setCellValueByColumnAndRow($i, $row, $fec_nacimiento_conyuge_format);
+	    			continue;
+	    		}
+	    		
+	    		if ($fields[$i]== "fec_diligencia") {
+	    			if ($asociado[$fields[$i]] == "0000-00-00") {
+	    				$fec_diligencia_format = "";
+	    			}else{
+	    				$fec_diligencia_format = date("d/m/Y", strtotime( $asociado[$fields[$i]]));
+	    			}
+	    			$this->excel->getActiveSheet()->setCellValueByColumnAndRow($i, $row, $fec_diligencia_format);
+	    			continue;
+	    		}
+	    		if ($fields[$i]== "fecha_afiliacion") {
+	    			if ($asociado[$fields[$i]] == "0000-00-00") {
+	    				$fecha_afiliacion_format = "";
+	    			}else{
+	    				$fecha_afiliacion_format = date("d/m/Y", strtotime( $asociado[$fields[$i]]));
+	    			}
+	    			$this->excel->getActiveSheet()->setCellValueByColumnAndRow($i, $row, $fecha_afiliacion_format);
+	    			continue;
+	    		}
+	    		if ($fields[$i]== "fecha_entrevista") {
+	    			if ($asociado[$fields[$i]] == "0000-00-00") {
+	    				$fecha_entrevista_format = "";
+	    			}else{
+	    				$fecha_entrevista_format = date("d/m/Y", strtotime( $asociado[$fields[$i]]));
+	    			}
+	    			$this->excel->getActiveSheet()->setCellValueByColumnAndRow($i, $row, $fecha_entrevista_format);
+	    			continue;
+	    		}
+
 	    		$this->excel->getActiveSheet()->setCellValueByColumnAndRow($i, $row, $asociado[$fields[$i]]);
+
+	    		
 	    		
 	    	}
 	    	 //change if required.

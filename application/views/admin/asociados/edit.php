@@ -31,10 +31,11 @@
                                     <div class="form-group">
                                         <label>Tipo de Identificacion</label>
                                         <select name="tipo_identificacion" id="tipo_identificacion" class="form-control" required="required">
-                                            <option value="">Seleccione...</option>
-                                            <?php foreach ($tipoidentificaciones as $ti): ?>
-                                                <option value="<?php echo $ti->id;?>" <?php echo $asociado->tipo_identificacion == $ti->id ? "selected":"";?>><?php echo $ti->tipoidentificacion?></option>
-                                            <?php endforeach ?>
+                                            <option value="">Selecione...</option>
+                                            <option value="C. E." <?php echo $asociado->tipo_identificacion =="C. E."?"selected":""; ?>>C.E.</option>
+                                            <option value="C. C." <?php echo $asociado->tipo_identificacion =="C. C."?"selected":""; ?>>C. C.</option>
+                                            <option value="Pasaporte" <?php echo $asociado->tipo_identificacion =="Pasaporte"?"selected":""; ?>>Pasaporte</option>
+                                            <option value="Otro" <?php echo $asociado->tipo_identificacion =="Otro"?"selected":""; ?>>Otro</option>
                                         </select>
                                     </div>
                                     <div class="form-group">
@@ -68,16 +69,16 @@
                                         <label for="">Zona de Ubicación</label>
                                         <select name="zona_ubicacion" class="form-control" required="required">
                                             <option value="">Selecione...</option>
-                                            <option value="1" <?php echo $asociado->zona_ubicacion==1?"selected":"";?>>Urbana</option>
-                                            <option value="2" <?php echo $asociado->zona_ubicacion==2?"selected":"";?>>Rural</option>
+                                            <option value="Urbana" <?php echo $asociado->zona_ubicacion == "Urbana" ? "selected":""; ?>>Urbana</option>
+                                            <option value="Rural" <?php echo $asociado->zona_ubicacion == "Rural" ? "selected":""; ?>>Rural</option>
                                         </select>
                                     </div>
                                      <div class="form-group">
                                         <label for="">Cabecera de Hogar</label>
                                         <select name="cabeza_hogar" class="form-control" required="required">
                                             <option value="">Indique</option>
-                                            <option value="1" <?php echo $asociado->cabeza_hogar==1?"selected":"";?>>SI</option>
-                                            <option value="2" <?php echo $asociado->cabeza_hogar==2?"selected":"";?>>No</option>
+                                            <option value="SI" <?php echo $asociado->cabeza_hogar == "SI" ?"selected":""; ?>>SI</option>
+                                            <option value="NO" <?php echo $asociado->cabeza_hogar == "NO" ?"selected":""; ?>>No</option>
                                         </select>
                                     </div>
                                     <div class="form-group">
@@ -92,17 +93,17 @@
                                         <label for="">Vinculado a otro fondo de empleados</label>
                                         <select name="vinculado_fondo" id="vinculado_fondo" class="form-control" required="required">
                                             <option value="">Indique</option>
-                                            <option value="1" <?php echo $asociado->vinculado_fondo==1?"selected":"";?>>SI</option>
-                                            <option value="2" <?php echo $asociado->vinculado_fondo==2?"selected":"";?>>No</option>
+                                            <option value="SI" <?php echo $asociado->vinculado_fondo == "SI"?"selected":""; ?>>SI</option>
+                                            <option value="NO" <?php echo $asociado->vinculado_fondo == "NO"?"selected":""; ?>>No</option>
                                         </select>
                                     </div>
                                     <div class="form-group">
                                         <label for="">Tipo de Poblacion</label>
                                         <select name="tipo_poblacion" id="tipo_poblacion" class="form-control" required="required">
                                             <option value="">Seleccione..</option>
-                                            <option value="1" <?php echo $asociado->tipo_poblacion==1?"selected":"";?>>Etnica</option>
-                                            <option value="2" <?php echo $asociado->tipo_poblacion==2?"selected":"";?>>Afectada por la Violencia</option>
-                                            <option value="3"<?php echo $asociado->tipo_poblacion==3?"selected":"";?>>Otro</option>
+                                            <option value="Etnica" <?php echo $asociado->tipo_poblacion == "Etnica"?"selected":""; ?>>Etnica</option>
+                                            <option value="Afectada por la Violencia" <?php echo $asociado->tipo_poblacion == "Afectada por la Violencia"?"selected":""; ?>>Afectada por la Violencia</option>
+                                            <option value="Otro" <?php echo $asociado->tipo_poblacion == "Otro"?"selected":""; ?>>Otro</option>
                                         </select>
                                     </div>
                                     
@@ -121,8 +122,8 @@
                                         <label for="">Sexo</label>
                                         <select name="genero" class="form-control" required="required">
                                             <option value="">Indique</option>
-                                            <option value="M" <?php echo $asociado->genero == "M" ? "selected":"";?>>Masculino</option>
-                                            <option value="F" <?php echo $asociado->genero == "F" ? "selected":"";?>>Femenino</option>
+                                            <option value="Masculino" <?php echo $asociado->genero == "Masculino" ? "selected":"";?>>Masculino</option>
+                                            <option value="Femenino" <?php echo $asociado->genero == "Femenino" ? "selected":"";?>>Femenino</option>
                                         </select>
                                     </div>
                                     <?php $fecha_nacimiento = DateTime::createFromFormat('Y-m-d',$asociado->fecha_nacimiento); ?>
@@ -189,27 +190,35 @@
                                         <label for="">Estado Civil</label>
                                         <select name="estado_civil" class="form-control" required="required">
                                             <option value="">Seleccione..</option>
-                                            <?php foreach ($estadosciviles as $ec): ?>
-                                                <option value="<?php  echo $ec->id;?>" <?php echo $ec->id == $asociado->estado_civil?"selected":"";?>><?php echo $ec->nombre;?></option>
-                                            <?php endforeach ?>
+                                            <option value="Soltero" <?php echo $asociado->estado_civil=="Soltero"?"selected":""; ?>>Soltero</option>
+                                            <option value="Casado" <?php echo $asociado->estado_civil=="Casado"?"selected":""; ?>>Casado</option>
+                                            <option value="Divorciado" <?php echo $asociado->estado_civil=="Divorciado"?"selected":""; ?>>Divorciado</option>
+                                            <option value="Union Libre" <?php echo $asociado->estado_civil=="Union Libre"?"selected":""; ?>>Unión libre</option>
+                                            <option value="Viudo" <?php echo $asociado->estado_civil=="Viudo"?"selected":""; ?>>Viudo</option>
                                         </select>
                                     </div>
                                     <div class="form-group">
                                         <label for="">Nivel de Escolaridad</label>
                                         <select name="nivel_escolar" class="form-control" required="required">
                                             <option value="">Indique</option>
-                                             <?php foreach ($nivelescolaridades as $ne): ?>
-                                                <option value="<?php echo $ne->id?>" <?php echo $ne->id == $asociado->nivel_escolar?"selected":"";?>><?php echo $ne->nivel?></option>
-                                            <?php endforeach ?>
+                                            <option value="Ninguno" <?php echo $asociado->nivel_escolar=="Ninguno"?"selected":""; ?>>Ninguno</option>
+                                            <option value="Primaria" <?php echo $asociado->nivel_escolar=="Primaria"?"selected":""; ?>>Primaria</option>
+                                            <option value="Secundaria" <?php echo $asociado->nivel_escolar=="Secundaria"?"selected":""; ?>>Secundaria</option>
+                                            <option value="Tecnico" <?php echo $asociado->nivel_escolar=="Tecnico"?"selected":""; ?>>Técnico</option>
+                                            <option value="Tecnologo" <?php echo $asociado->nivel_escolar=="Tecnologo"?"selected":""; ?>>Técnologo</option>
+                                            <option value="Universitario" <?php echo $asociado->nivel_escolar=="Universitario"?"selected":""; ?>>Universitario</option>
+                                            <option value="Postgrado" <?php echo $asociado->nivel_escolar=="Postgrado"?"selected":""; ?>>Postgrado</option>
                                         </select>
                                     </div>
                                     <div class="form-group">
                                         <label for="">Vivienda</label>
                                         <select name="vivienda" class="form-control" required="required">
                                             <option value="">Indique</option>
-                                            <?php foreach ($viviendas as $v): ?>
-                                                <option value="<?php echo $v->id?>" <?php echo $v->id == $asociado->vivienda?"selected":"";?>><?php echo $v->vivienda?></option>
-                                            <?php endforeach ?>
+                                            <option value="Propia" <?php echo $asociado->vivienda =="Propia"?"selected":""; ?>>Propia</option>
+                                            <option value="Hipotecada" <?php echo $asociado->vivienda =="Hipotecada"?"selected":""; ?>>Hipotecada</option>
+                                            <option value="Arrendada" <?php echo $asociado->vivienda =="Arrendada"?"selected":""; ?>>Arrendada</option>
+                                            <option value="Financiada" <?php echo $asociado->vivienda =="Financiada"?"selected":""; ?>>Financiada</option>
+                                            <option value="Familiar" <?php echo $asociado->vivienda =="Familiar"?"selected":""; ?>>Familiar</option>
                                         </select>
                                     </div>
                                     <div class="form-group">
@@ -232,16 +241,16 @@
                                         <label for="">Autorizo envio de informacion por correo electronico</label>
                                         <select name="autorizo_envio" class="form-control" required="required">
                                             <option value="">Indique</option>
-                                            <option value="1" <?php echo $asociado->autorizo_envio == "1" ? "selected":"";?>>SI</option>
-                                            <option value="2" <?php echo $asociado->autorizo_envio == "2" ? "selected":"";?>>NO</option>
+                                            <option value="SI" <?php echo $asociado->autorizo_envio == "SI"?"selected":""; ?>>SI</option>
+                                            <option value="NO" <?php echo $asociado->autorizo_envio == "NO"?"selected":""; ?>>NO</option>
                                         </select>
                                     </div>
                                     <div class="form-group">
                                         <label for="">Poblacion Vulnerable</label>
                                         <select name="poblacion_vulnerable" class="form-control" required="required">
                                             <option value="">Indique</option>
-                                            <option value="1" <?php echo $asociado->poblacion_vulnerable == "1" ? "selected":"";?>>SI</option>
-                                            <option value="2" <?php echo $asociado->poblacion_vulnerable == "2" ? "selected":"";?>>NO</option>
+                                            <option value="SI" <?php echo $asociado->poblacion_vulnerable == "SI"?"selected":""; ?>>SI</option>
+                                            <option value="NO" <?php echo $asociado->poblacion_vulnerable == "NO"?"selected":""; ?>>No</option>
                                         </select>
                                     </div>
                                    
@@ -360,18 +369,20 @@
                                         <label for="">Tipo Identificacion</label>
                                         <select name="ti_conyugue" id="ti_conyugue" class="form-control" >
                                             <option value="">Seleccione..</option>
-                                            <?php foreach ($tipoidentificaciones as $ti): ?>
-                                                <option value="<?php echo $ti->id;?>" <?php echo $ti->id==$asociado->tipo_identificacion_conyuge?"selected":"";?>><?php echo $ti->tipoidentificacion?></option>
-                                            <?php endforeach ?>
+                                            <option value="C. E." <?php echo $asociado->tipo_identificacion_conyuge =="C. E."?"selected":""; ?>>C.E.</option>
+                                            <option value="C. C." <?php echo $asociado->tipo_identificacion_conyuge =="C. C."?"selected":""; ?>>C. C.</option>
+                                            <option value="Pasaporte" <?php echo $asociado->tipo_identificacion_conyuge =="Pasaporte"?"selected":""; ?>>Pasaporte</option>
+                                            <option value="Otro" <?php echo $asociado->tipo_identificacion_conyuge =="Otro"?"selected":""; ?>>Otro</option>
                                         </select>
                                     </div>
                                     <div class="form-group">
                                         <label for="">Actividad Laboral</label>
                                         <select name="actividad_laboral" id="actividad_laboral" class="form-control">
                                             <option value="">Seleccione..</option>
-                                            <?php foreach ($actividades as $a): ?>
-                                                <option value="<?php echo $a->id;?>" <?php echo $a->id == $asociado->actividad_laboral_conyuge?"selected":"";?>><?php echo $a->actividad?></option>
-                                            <?php endforeach ?>
+                                            <option value="Independiente" <?php echo $asociado->actividad_laboral_conyuge == "Independiente"?"selected":""; ?>>Independiente</option>
+                                            <option value="Asalariado" <?php echo $asociado->actividad_laboral_conyuge == "Asalariado"?"selected":""; ?>>Asalariado</option>
+                                            <option value="Hogar" <?php echo $asociado->actividad_laboral_conyuge == "Hogar"?"selected":""; ?>>Hogar</option>
+                                            <option value="Pensionado" <?php echo $asociado->actividad_laboral_conyuge == "Pensionado"?"selected":""; ?>>Pensionado</option>
                                         </select>
                                     </div>
                                     <div class="form-group">
@@ -412,8 +423,8 @@
                                         <label for="">Asociado a FESUN</label>
                                         <select name="asociado_fesun_c" id="asociado_fesun_c" class="form-control">
                                             <option value="">Indique</option>
-                                            <option value="1" <?php echo $asociado->asociado_fesun_conyuge==1?"selected":"";?>>SI</option>
-                                            <option value="2" <?php echo $asociado->asociado_fesun_conyuge==0?"selected":"";?>>NO</option>
+                                            <option value="SI" <?php echo $asociado->asociado_fesun_conyuge =="SI" ?"selected":""; ?>>SI</option>
+                                            <option value="NO" <?php echo $asociado->asociado_fesun_conyuge =="NO" ?"selected":""; ?>>NO</option>
                                         </select>
                                     </div>
                                </div>
@@ -436,9 +447,9 @@
                                         <label for="">Jornada Laboral</label>
                                         <select name="jornada_laboral" id="jornada_laboral" class="form-control">
                                             <option value="">Indique</option>
-                                            <option value="1" <?php echo $asociado->jornada_laboral_conyuge == 1 ? "selected":"";?>>Tiempo Total</option>
-                                            <option value="2" <?php echo $asociado->jornada_laboral_conyuge == 2 ? "selected":"";?>>Tiempo Parcial</option>
-                                            <option value="3" <?php echo $asociado->jornada_laboral_conyuge == 3 ? "selected":"";?>>No Aplica</option>
+                                            <option value="Tiempo Total" <?php echo $asociado->jornada_laboral_conyuge =="Tiempo Total" ?"selected":""; ?>>Tiempo Total</option>
+                                            <option value="Tiempo Parcial" <?php echo $asociado->jornada_laboral_conyuge =="Tiempo Parcial" ?"selected":""; ?>>Tiempo Parcial</option>
+                                            <option value="No Aplica" <?php echo $asociado->jornada_laboral_conyuge =="No Aplica" ?"selected":""; ?>>No Aplica</option>
                                         </select>
                                     </div>
                                     <div class="form-group">
@@ -449,9 +460,12 @@
                                         <label for="">Nivel de Escolaridad</label>
                                         <select name="nivel_escolar_c" class="form-control">
                                             <option value="">Seleccione..</option>
-                                            <?php foreach ($nivelescolaridades as $ne): ?>
-                                                <option value="<?php echo $ne->id?>" <?php echo $asociado->nivel_escolar_conyuge == $ne->id ? "selected":"";?>><?php echo $ne->nivel?></option>
-                                            <?php endforeach ?>
+                                            <option value="Primaria" <?php echo $asociado->nivel_escolar_conyuge=="Primaria"?"selected":""; ?>>Primaria</option>
+                                            <option value="Secundaria" <?php echo $asociado->nivel_escolar_conyuge=="Secundaria"?"selected":""; ?>>Secundaria</option>
+                                            <option value="Tecnico" <?php echo $asociado->nivel_escolar_conyuge=="Tecnico"?"selected":""; ?>>Técnico</option>
+                                            <option value="Tecnologo" <?php echo $asociado->nivel_escolar_conyuge=="Tecnologo"?"selected":""; ?>>Técnologo</option>
+                                            <option value="Universitario" <?php echo $asociado->nivel_escolar_conyuge=="Universitario"?"selected":""; ?>>Universitario</option>
+                                            <option value="Postgrado" <?php echo $asociado->nivel_escolar_conyuge=="Postgrado"?"selected":""; ?>>Postgrado</option>
                                         </select>
                                     </div>
                                </div>
@@ -580,8 +594,8 @@
                                         <label for="">Tipo de Nomina</label>
                                         <select name="tipo_nomina" class="form-control">
                                             <option value="">Indique</option>
-                                            <option value="1" <?php echo $asociado->tipo_nomina==1?"selected":"";?>>Mensual</option>
-                                            <option value="2" <?php echo $asociado->tipo_nomina==2?"selected":"";?>>Quincenal</option>
+                                            <option value="Mensual" <?php echo $asociado->tipo_nomina == "Mensual" ?"selected":""; ?>>Mensual</option>
+                                            <option value="Quincenal" <?php echo $asociado->tipo_nomina == "Quincenal" ?"selected":""; ?>>Quincenal</option>
                                         </select>
                                     </div>
                                     <div class="form-group">
@@ -608,8 +622,8 @@
                                         <label for="">Tipo de Contrato</label>
                                         <select name="tipo_contrato" class="form-control" required="">
                                             <option value="">Indique</option>
-                                            <option value="1" <?php echo $asociado->tipo_contrato==1?"selected":"";?>>T Fijo</option>
-                                            <option value="2" <?php echo $asociado->tipo_contrato==2?"selected":"";?>>T Indefinido</option>
+                                            <option value="Fijo" <?php echo $asociado->tipo_contrato == "Fijo" ?"selected":""; ?>>T Fijo</option>
+                                            <option value="Indefinido" <?php echo $asociado->tipo_contrato == "Indefinido" ?"selected":""; ?>>T Indefinido</option>
                                         </select>
                                     </div>
                                     <div class="form-group">
@@ -725,16 +739,16 @@
                                         <label for="">Tiene cuenta bancaria?</label>
                                         <select name="cuenta_bancaria" id="cuenta_bancaria" class="form-control">
                                             <option value="">Indique</option>
-                                            <option value="1" <?php echo $asociado->cuenta_bancaria == 1?"selected":"";?>>SI</option>
-                                            <option value="2" <?php echo $asociado->cuenta_bancaria == 2?"selected":"";?>>NO</option>
+                                            <option value="SI" <?php echo $asociado->cuenta_bancaria == "SI" ?"selected":""; ?>>SI</option>
+                                            <option value="NO" <?php echo $asociado->cuenta_bancaria == "NO" ?"selected":""; ?>>NO</option>
                                         </select>
                                     </div>
                                     <div class="form-group">
                                         <label for="">Realiza Operaciones en Moneda Extranjera?</label>
                                         <select name="operacion_extranjera" id="operacion_extranjera" class="form-control">
                                             <option value="">Indique</option>
-                                            <option value="1" <?php echo $asociado->operaciones_extranjeras == 1?"selected":"";?>>SI</option>
-                                            <option value="2" <?php echo $asociado->operaciones_extranjeras == 2?"selected":"";?>>NO</option>
+                                            <option value="SI" <?php echo $asociado->operacion_extranjera == "SI"?"selected":""; ?>>SI</option>
+                                            <option value="NO" <?php echo $asociado->operacion_extranjera == "NO"?"selected":""; ?>>NO</option>
                                         </select>
                                     </div>
                                     <div class="form-group">
@@ -761,24 +775,24 @@
                                         <label for="">Tipo de Cuenta</label>
                                         <select name="tipo_cuenta" id="tipo_cuenta" class="form-control">
                                             <option value="">Indique</option>
-                                            <option value="1" <?php echo $asociado->tipo_cuenta == 1?"selected":"";?>>Ahorro</option>
-                                            <option value="2" <?php echo $asociado->tipo_cuenta == 2?"selected":"";?>>Corriente</option>
+                                            <option value="Ahorro" <?php echo $asociado->tipo_cuenta == "Ahorro" ? "selected":""; ?>>Ahorro</option>
+                                            <option value="Corriente" <?php echo $asociado->tipo_cuenta == "Corriente" ? "selected":""; ?>>Corriente</option>
                                         </select>
                                     </div>
                                     <div class="form-group">
                                         <label for="">Cuenta con moneda Extrajera?</label>
                                         <select name="moneda_extranjera" id="moneda_extranjera" class="form-control"> 
                                             <option value="">Indique</option>
-                                            <option value="1" <?php echo $asociado->moneda_extranjera == 1?"selected":"";?>>SI</option>
-                                            <option value="2" <?php echo $asociado->moneda_extranjera == 2?"selected":"";?>>NO</option>
+                                            <option value="SI" <?php echo $asociado->moneda_extranjera=="SI"?"selected":""; ?>>SI</option>
+                                            <option value="NO" <?php echo $asociado->moneda_extranjera=="NO"?"selected":""; ?>>NO</option>
                                         </select>
                                     </div>
                                     <div class="form-group">
                                         <label for="">Declara renta?</label>
                                         <select name="declara_renta" id="declara_renta" class="form-control">
                                             <option value="">Indique</option>
-                                            <option value="1" <?php echo $asociado->declara_renta == 1?"selected":"";?>>SI</option>
-                                            <option value="2" <?php echo $asociado->declara_renta == 2?"selected":"";?>>NO</option>
+                                            <option value="SI" <?php echo $asociado->declara_renta == "SI" ? "selected":""; ?>>SI</option>
+                                            <option value="NO" <?php echo $asociado->declara_renta == "NO" ? "selected":""; ?>>NO</option>
                                         </select>
                                     </div>
                                 </div><!-- Fin de la columna 3-->
@@ -825,8 +839,8 @@
                                             <label for="">Pignoracion</label>
                                             <select name="pignoracion" id="pignoracion" class="form-control">
                                                 <option value="">Inidque</option>
-                                                <option value="1" <?php echo $asociado->pignoracion==1?"selected":"";?>>SI</option>
-                                                <option value="2" <?php echo $asociado->pignoracion==2?"selected":"";?>>NO</option>
+                                                <option value="SI" <?php echo $asociado->pignoracion == "SI" ? "selected":""; ?>>SI</option>
+                                                <option value="NO" <?php echo $asociado->pignoracion == "NO" ? "selected":""; ?>>NO</option>
                                             </select>
                                         </td>
                                         <td>
@@ -881,8 +895,8 @@
                                             <label for="">Hipoteca</label>
                                             <select name="hipoteca" id="hipoteca" class="form-control">
                                                 <option value="">Indique</option>
-                                                <option value="1" <?php echo $asociado->hipoteca==1?"selected":"";?>>SI</option>
-                                                <option value="2" <?php echo $asociado->hipoteca==2?"selected":"";?>>NO</option>
+                                                <option value="SI" <?php echo $asociado->hipoteca == "SI" ? "selected":""; ?>>SI</option>
+                                                <option value="NO" <?php echo $asociado->hipoteca == "NO" ? "selected":""; ?>>NO</option>
                                             </select>
                                         </td>
                                         <td colspan="2">
@@ -1043,9 +1057,10 @@
                                         <label for="">Tipo de Vinculacion:</label>
                                         <select name="tipo_vinculacion" id="tipo_vinculacion" required="required" class="form-control">
                                             <option value="">Seleccione...</option>
-                                            <?php foreach ($vinculaciones as $v): ?>
-                                                <option value="<?php echo $v->id; ?>" <?php echo $v->id == $asociado->tipo_vinculacion ? 'selected':'';?>><?php echo $v->vinculacion?></option>
-                                            <?php endforeach ?>
+                                            <option value="Vinculación" <?php echo $asociado->tipo_vinculacion == "Vinculación" ? "selected":""; ?>>Vinculación</option>
+                                            <option value="Actualización" <?php echo $asociado->tipo_vinculacion == "Actualización" ? "selected":""; ?>>Actualización</option>
+                                            <option value="Vinculación por Primera vez" <?php echo $asociado->tipo_vinculacion == "Vinculación por Primera vez" ? "selected":""; ?>>Vinculación por Primera vez</option>
+                                            <option value="Reingreso" <?php echo $asociado->tipo_vinculacion == "Reingreso" ? "selected":""; ?>>Reingreso</option>
                                         </select>
                                     </div>
                                     <div class="form-group">
@@ -1065,11 +1080,25 @@
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label for="">Fecha de Diligenciamiento</label>
-                                        <input type="text" class="form-control datepicker" name="fec_diligencia" placeholder="Fecha Expedicion" required="required" value="<?php echo DateTime::createFromFormat('Y-m-d',$asociado->fec_diligencia)->format("d/m/Y");?>">
+                                        <?php 
+                                            if ($asociado->fec_diligencia =="0000-00-00") {
+                                                $fec_diligencia = "";
+                                            }else{
+                                                $fec_diligencia = DateTime::createFromFormat('Y-m-d',$asociado->fec_diligencia)->format("d/m/Y");
+                                            }
+                                        ?>
+                                        <input type="text" class="form-control datepicker" name="fec_diligencia" placeholder="Fecha Expedicion" required="required" value="<?php echo $fec_diligencia;?>">
                                     </div>
                                     <div class="form-group">
                                         <label for="">Fecha de la entrevista</label>
-                                        <input type="text" class="form-control datepicker" name="fec_entrevista" placeholder="Fecha Expedicion" required="required" value="<?php echo DateTime::createFromFormat('Y-m-d',$asociado->fecha_entrevista)->format("d/m/Y");?>">
+                                        <?php 
+                                            if ($asociado->fecha_entrevista =="0000-00-00") {
+                                                $fecha_entrevista = "";
+                                            }else{
+                                                $fecha_entrevista = DateTime::createFromFormat('Y-m-d',$asociado->fecha_entrevista)->format("d/m/Y");
+                                            }
+                                        ?>
+                                        <input type="text" class="form-control datepicker" name="fec_entrevista" placeholder="Fecha Expedicion" required="required" value="<?php echo $fecha_entrevista;?>">
                                     </div>
                                     
 
@@ -1100,7 +1129,14 @@
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label for="">Fecha de Afiliacion:</label>
-                                        <input type="text" class="form-control datepicker" name="fec_afiliacion" required="required" value="<?php echo DateTime::createFromFormat('Y-m-d',$asociado->fecha_afiliacion)->format('d/m/Y');?>">
+                                        <?php 
+                                            if ($asociado->fecha_afiliacion =="0000-00-00") {
+                                                $fecha_afiliacion = "";
+                                            }else{
+                                                $fecha_afiliacion = DateTime::createFromFormat('Y-m-d',$asociado->fecha_afiliacion)->format("d/m/Y");
+                                            }
+                                        ?>
+                                        <input type="text" class="form-control datepicker" name="fec_afiliacion" required="required" value="<?php echo $fecha_afiliacion;?>">
                                     </div>
                                 </div>
                             </div>

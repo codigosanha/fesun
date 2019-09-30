@@ -65,7 +65,7 @@
                                         <select name="zona_ubicacion" class="form-control" required="required">
                                             <option value="">Selecione...</option>
                                             <option value="Urbana">Urbana</option>
-                                            <option value="rural">Rural</option>
+                                            <option value="Rural">Rural</option>
                                         </select>
                                     </div>
                                      <div class="form-group">
