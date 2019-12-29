@@ -850,6 +850,44 @@ $(document).ready(function(){
 		if (uri_segment != '') {
 			url_complete = base_url + "filemanager/archivos/getArchivos/"+uri_segment;
 		}*/
+        $('#tbaportes').DataTable({
+            "processing": true,
+            "serverSide": true,
+            "ajax":{
+                "url": base_url + "backend/aportes/getAportes",
+                "dataType": "json",
+                "type": "POST",
+            },
+            "columns": [
+                { "data": "cedula" },
+                { "data": "nombre" },
+                { "data": "numero" },
+                { "data": "saldof" },
+                { "data": "saldot" },
+                { "data": "fechae" },
+                {
+                    mRender: function (data, type, row) {
+                    	var btn_view = '<a href="'+base_url+'backend/aportes/view/'+row.id+'" class="btn btn-info btn-sm" target="_blank">';
+                        btn_view += '<span class="fa fa-search"></span>';
+                        btn_view += '</a>';
+                            
+
+                    	
+                        return btn_view;
+                    }
+                } 
+            ],
+            "language": tradutorDataTables(),
+            "order": [[ 1, "asc" ]]
+
+        });
+    });
+
+    $(document).ready(function () {
+		/*var url_complete = base_url + "filemanager/archivos/getArchivos";
+		if (uri_segment != '') {
+			url_complete = base_url + "filemanager/archivos/getArchivos/"+uri_segment;
+		}*/
         $('#tbasociados').DataTable({
             "processing": true,
             "serverSide": true,
@@ -1078,11 +1116,12 @@ $(document).ready(function(){
 	});
 	$("#form-change-image").submit(function(e){
 		e.preventDefault();
+		var url = $(this).attr("action");
 
 		var formData = new FormData($("#form-change-image")[0]);
 
 		$.ajax({
-			url: base_url + "administrador/usuarios/changeImagen",
+			url: url,
 			type:"POST",
 			data: formData,
 			cache:false,

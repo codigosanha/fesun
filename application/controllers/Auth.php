@@ -93,12 +93,17 @@ class Auth extends CI_Controller {
 				//echo "0";
 			}
 			else{
-				$data  = array(
-					'id' => $res->id, 
-					'nombres' => $res->nombres,
-					'rol' => $rol,
-					'login' => TRUE
-				);
+				
+					$data['id'] = $res->id; 
+					$data['nombres'] = $res->nombres;
+					$data['rol'] = $rol;
+					$data['login'] = TRUE;
+					if ($rol==2) {
+						$data['cedula'] = $res->num_identificacion;
+					}else{
+						$data['cedula'] = $res->cedula;
+					}
+				
 				$this->session->set_userdata($data);
 				$this->backend_lib->savelog($this->modulo,"Inicio de sesión");
 

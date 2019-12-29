@@ -36,37 +36,21 @@
                 <div class="col-md-12">
                     
                     <div class="table-responsive">
-                        <table id="tb-without-buttons" class="table table-bordered table-hover" width="100%">
+                        <table id="tbaportes" class="table table-bordered table-hover" width="100%">
                             <thead>
                                 <tr>
                                     
                                     <th>Cedula</th>
                                     <th>Apellidos y Nombres</th>
-                                    <th>Tipo de Credito</th>
-                                    <th>Valor Actual</th>
-                                    <th>Saldo Pendiente</th>
-                                    <th>Fecha</th>
+                                    <th>Número de cuenta</th>
+                                    <th>Total Saldo a favor</th>
+                                    <th>Saldo Total de la deuda</th>
+                                    <th>Fecha de emision</th>
                                     <th>Opciones</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php if (!empty($aportes)): ?>
-                                    <?php foreach ($aportes as $aporte): ?>
-                                        <tr>
-                                            <td><?php echo $aporte->cedula ?></td>
-                                            <td><?php echo $aporte->nombre ?></td>
-                                            <td><?php echo $aporte->cedula ?></td>
-                                            <td><?php echo $aporte->cedula ?></td>
-                                            <td><?php echo $aporte->cedula ?></td>
-                                            <td><?php echo $aporte->cedula ?></td>
-                                            <td>
-                                                <a href="#" class="btn btn-info btn-sm">
-                                                    <span class="fa fa-search"></span>
-                                                </a>
-                                            </td>
-                                        </tr>
-                                    <?php endforeach ?>
-                                <?php endif ?>
+                                
                             </tbody>
                         </table>
                     </div>
@@ -89,7 +73,7 @@
           <span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title">Importar Asociados</h4>
       </div>
-      <form action="<?php echo base_url();?>backend/aportes/importar" method="POST"  enctype="multipart/form-data">  
+      <form action="<?php echo base_url();?>backend/aportes/importar_spout" method="POST"  enctype="multipart/form-data">  
           <div class="modal-body">
                 <div class="form-group">
                     <label for="file">Seleccione Archivo Excel</label>

@@ -1163,5 +1163,113 @@ class Asociados extends CI_Controller {
 	        $objWriter->save('php://output');
 	}
 
+	public function infoAsociado(){
+		$id = $this->input->post("idAsociado");
+		$nombres = $this->input->post("nombres");
+		$correo = $this->input->post("correo");
+		$genero = $this->input->post("genero");
+
+		$data = array(
+			"nombres" => $nombres,
+			"correo" => $correo,
+			"genero" => $genero,
+		);
+
+		if ($this->Asociados_model->update($id, $data)) {
+			$this->session->set_flashdata("success", "El cambio de informacion del usuario fue éxitoso");
+			$this->session->set_userdata("nombres",$nombres);
+			redirect(base_url()."usuario/perfil");
+		}
+	}
+
+	public function changePassword(){
+		$id = $this->input->post("idAsociado");
+		$password = $this->input->post("newpass");
+		$data = array(
+			"password" => sha1($password),
+		);
+
+		if ($this->Asociados_model->update($id, $data)) {
+			$this->session->set_flashdata("success", "El cambio de contraseña fue éxitoso");
+			redirect(base_url()."usuario/perfil");
+		}
+	}
+
+	public function changeImagen(){
+		$id = $this->input->post("idAsociado");
+
+		$config['upload_path']   = './assets/images/usuarios/';
+        $config['allowed_types'] = 'gif|jpg|png';
+
+        $this->load->library('upload', $config);
+
+        if (!$this->upload->do_upload('file'))
+        {
+            $error = array(
+            	'error' => $this->upload->display_errors(),
+            	'status' => 0
+            );
+			echo json_encode($error);
+        }
+        else
+        {
+            $data = array(
+            	'upload_data' => $this->upload->data()
+            );
+
+            $datos = array(
+            	"imagen" => $data["upload_data"]["file_name"],
+            );
+
+            if ($this->Asociados_model->update($id, $datos)) {
+
+            	$success = array(
+            		"status" =>1
+              	);
+				echo json_encode($success);
+			}
+
+
+        }
+	}
+
+	public function changeFirma(){
+		$id = $this->input->post("idAsociado");
+
+		$config['upload_path']   = './assets/images/firmas/';
+        $config['allowed_types'] = 'gif|jpg|png';
+
+        $this->load->library('upload', $config);
+
+        if (!$this->upload->do_upload('file'))
+        {
+            $error = array(
+            	'error' => $this->upload->display_errors(),
+            	'status' => 0
+            );
+			echo json_encode($error);
+        }
+        else
+        {
+            $data = array(
+            	'upload_data' => $this->upload->data()
+            );
+
+            $datos = array(
+            	"firma" => $data["upload_data"]["file_name"],
+            );
+
+            if ($this->Asociados_model->update($id, $datos)) {
+
+            	$success = array(
+            		"status" =>1
+              	);
+				echo json_encode($success);
+			}
+
+
+        }
+	}
+
 	
 }

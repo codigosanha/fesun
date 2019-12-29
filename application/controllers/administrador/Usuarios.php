@@ -9,6 +9,7 @@ class Usuarios extends CI_Controller {
 			redirect(base_url());
 		}
 		$this->load->model("Usuarios_model");
+		$this->load->model("Asociados_model");
 		$this->load->model("Fincas_model");
 		$this->load->library('excel');
 
@@ -152,12 +153,27 @@ class Usuarios extends CI_Controller {
 
 	}
 	public function perfil(){
+		if ($this->session->userdata("rol") == 2) {
+			$usuario = $this->Asociados_model->getAsociado($this->session->userdata("id"));
+		}else{
+			$usuario = $this->Usuarios_model->getUsuario($this->session->userdata("id"));
+		}
+
 		$contenido_interno = array(
-			"usuario" => $this->Usuarios_model->getUsuario($this->session->userdata("id"))
+			"usuario" => $usuario
 		);
-		$contenido_externo = array(
-			"contenido" => $this->load->view("admin/usuarios/perfil",$contenido_interno,TRUE)
-		);
+
+		if ($this->session->userdata("rol") == 2) {
+			$contenido_externo = array(
+				"contenido" => $this->load->view("admin/asociados/perfil",$contenido_interno,TRUE)
+			);
+		}else{
+			$contenido_externo = array(
+				"contenido" => $this->load->view("admin/usuarios/perfil",$contenido_interno,TRUE)
+			);
+		}
+
+		
 		$this->load->view('admin/template', $contenido_externo);
 	}
 

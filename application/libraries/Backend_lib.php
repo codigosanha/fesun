@@ -82,8 +82,15 @@ class Backend_lib
 
 	public function getUsuarioAutenticado(){
 		$this->load->model("Usuarios_model");
+		$this->load->model("Asociados_model");
 
-		$usuario = $this->Usuarios_model->getUsuario($this->session->userdata("id"));
+		if ($this->session->userdata("rol") == 2) {
+			$usuario = $this->Asociados_model->getAsociado($this->session->userdata("id"));
+		}else{
+			$usuario = $this->Usuarios_model->getUsuario($this->session->userdata("id"));
+		}
+
+		
 
 		return $usuario;
 	}

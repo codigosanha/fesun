@@ -81,6 +81,9 @@ switch (ENVIRONMENT)
 
 	case 'testing':
 	case 'production':
+		ini_set("max_execution_time", '0');
+		//ini_set("max_execution_time", 'time_limit');
+		ini_set('memory_limit', '-1');
 		ini_set('display_errors', 0);
 		if (version_compare(PHP_VERSION, '5.3', '>='))
 		{

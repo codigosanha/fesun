@@ -24,7 +24,7 @@
 
                     <img class="profile-user-img img-responsive img-circle" src="<?php echo base_url();?>assets/images/usuarios/<?php echo $usuario->imagen;?>" alt="User profile picture">
                     <hr>
-                    <form action="#" method="POST" id="form-change-image" enctype="multipart/form-data">
+                    <form action="<?php echo base_url(); ?>administrador/usuarios/changeImagen" method="POST" id="form-change-image" enctype="multipart/form-data">
                         <input type="hidden" name="idUsuario" value="<?php echo $usuario->id;?>">
                         <div class="form-group">
                             <label for="">Cambiar Foto:</label>
